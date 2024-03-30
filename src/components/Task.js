@@ -1,4 +1,5 @@
 import { format } from "date-fns";
+import Project from "./Project";
 
 const VALID_PRIORITIES = ["critical", "high", "medium", "low"];
 const VALID_STATUS = ["todo", "doing", "done", "paused", "archived"];
@@ -14,6 +15,18 @@ const VALID_CATEGORIES = [
     "professional",
 ];
 
+const categoryColors = {
+    child: "#FFC107",
+    education: "#4CAF50",
+    family: "#FF5722",
+    finance: "#3F51B5",
+    "health & fitness": "#F44336",
+    home: "#795548",
+    learning: "#9C27B0",
+    personal: "#E91E63",
+    professional: "#03A9F4",
+};
+
 const processString = (str) => str.trim().toLowerCase();
 
 export default class Task {
@@ -23,7 +36,8 @@ export default class Task {
         endDate,
         categories = [],
         tags = [],
-        priority
+        priority,
+        project
     ) {
         this.name = name;
         this.description = description;
@@ -95,7 +109,7 @@ export default class Task {
     }
 }
 
-export { VALID_CATEGORIES };
+export { VALID_CATEGORIES, categoryColors };
 
 const task1 = new Task("Pay rent", "Need to pay rent for my house", new Date());
 task1.addCategories("Finance", "Personal");
