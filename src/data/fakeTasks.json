@@ -1,0 +1,392 @@
+[
+    {
+        "name": "Schedule annual check-up",
+        "description": "Book an appointment for the annual health check-up with the family doctor.",
+        "end_date": "2024-04-15",
+        "priority": "high",
+        "category": "health & fitness",
+        "status": "to-do",
+        "tags": ["health", "annual", "doctor"],
+        "project": "Health Initiative"
+    },
+    {
+        "name": "Weekly grocery shopping",
+        "description": "Make a list and buy groceries for the week.",
+        "end_date": "2024-04-07",
+        "priority": "medium",
+        "category": "home",
+        "status": "doing",
+        "tags": ["shopping", "weekly", "groceries"],
+        "project": "default"
+    },
+    {
+        "name": "Tax filing for 2024",
+        "description": "Collect all necessary documents and file the taxes for the year 2024.",
+        "end_date": "2024-04-30",
+        "priority": "critical",
+        "category": "finance",
+        "status": "to-do",
+        "tags": ["taxes", "finance", "2024"],
+        "project": "Finance Management"
+    },
+    {
+        "name": "Parent-teacher meeting",
+        "description": "Attend the parent-teacher meeting to discuss child's academic performance.",
+        "end_date": "2024-04-10",
+        "priority": "high",
+        "category": "education",
+        "status": "doing",
+        "tags": ["school", "meeting", "child"],
+        "project": "Child's Education"
+    },
+    {
+        "name": "Start a new book",
+        "description": "Begin reading 'The Great Gatsby' by F. Scott Fitzgerald.",
+        "end_date": "2024-04-20",
+        "priority": "low",
+        "category": "personal",
+        "status": "to-do",
+        "tags": ["reading", "book"],
+        "project": "Reading List"
+    },
+    {
+        "name": "Garden maintenance",
+        "description": "Weed the garden and plant new flowers.",
+        "end_date": "2024-04-18",
+        "priority": "medium",
+        "category": "home",
+        "status": "paused",
+        "tags": ["garden", "maintenance", "flowers"],
+        "project": "default"
+    },
+    {
+        "name": "Upgrade computer software",
+        "description": "Check for the latest updates and install them on the personal computer.",
+        "end_date": "2024-04-25",
+        "priority": "high",
+        "category": "learning",
+        "status": "doing",
+        "tags": ["software", "update", "computer"],
+        "project": "Tech Upgrades"
+    },
+    {
+        "name": "Plan family vacation",
+        "description": "Research and plan a vacation for the family during the summer holidays.",
+        "end_date": "2024-05-15",
+        "priority": "medium",
+        "category": "family",
+        "status": "to-do",
+        "tags": ["vacation", "family", "plan"],
+        "project": "Summer 2024"
+    },
+    {
+        "name": "Renew gym membership",
+        "description": "Renew the annual membership at the local gym.",
+        "end_date": "2024-04-22",
+        "priority": "high",
+        "category": "health & fitness",
+        "status": "to-do",
+        "tags": ["gym", "renewal", "fitness"],
+        "project": "Health Initiative"
+    },
+    {
+        "name": "Prepare project proposal",
+        "description": "Draft and submit the proposal for the upcoming work project.",
+        "end_date": "2024-04-30",
+        "priority": "critical",
+        "category": "professional",
+        "status": "doing",
+        "tags": ["work", "proposal", "project"],
+        "project": "Q2 Projects"
+    },
+    {
+        "name": "Organize the garage",
+        "description": "Clean and organize the tools and items stored in the garage.",
+        "end_date": "2024-04-19",
+        "priority": "low",
+        "category": "home",
+        "status": "paused",
+        "tags": ["garage", "organize", "cleaning"],
+        "project": "default"
+    },
+    {
+        "name": "Dentist appointment for cleaning",
+        "description": "Schedule and attend a teeth cleaning appointment with the dentist.",
+        "end_date": "2024-04-14",
+        "priority": "medium",
+        "category": "health & fitness",
+        "status": "done",
+        "tags": ["dentist", "teeth", "health"],
+        "project": "Health Initiative"
+    },
+    {
+        "name": "Update resume",
+        "description": "Revise and update the resume with the latest job experiences and skills.",
+        "end_date": "2024-05-01",
+        "priority": "high",
+        "category": "professional",
+        "status": "to-do",
+        "tags": ["resume", "career", "update"],
+        "project": "Career Advancement"
+    },
+    {
+        "name": "Paint the living room",
+        "description": "Choose a new color and repaint the living room walls.",
+        "end_date": "2024-04-28",
+        "priority": "medium",
+        "category": "home",
+        "status": "doing",
+        "tags": ["paint", "living room", "home improvement"],
+        "project": "Home Renovation"
+    },
+    {
+        "name": "Enroll in online course",
+        "description": "Find and enroll in an online course to learn Python programming.",
+        "end_date": "2024-04-16",
+        "priority": "medium",
+        "category": "learning",
+        "status": "to-do",
+        "tags": ["learning", "online course", "Python"],
+        "project": "Skill Development"
+    },
+    {
+        "name": "Annual car service",
+        "description": "Take the car to the dealership for its annual maintenance service.",
+        "end_date": "2024-04-23",
+        "priority": "high",
+        "category": "personal",
+        "status": "to-do",
+        "tags": ["car", "service", "annual"],
+        "project": "default"
+    },
+    {
+        "name": "Backup digital photos",
+        "description": "Backup all digital photos from the phone and computer to an external hard drive.",
+        "end_date": "2024-05-05",
+        "priority": "low",
+        "category": "personal",
+        "status": "doing",
+        "tags": ["backup", "photos", "digital"],
+        "project": "Digital Organization"
+    },
+    {
+        "name": "Assemble new bookshelf",
+        "description": "Build the new bookshelf purchased from Ikea.",
+        "end_date": "2024-04-12",
+        "priority": "medium",
+        "category": "home",
+        "status": "doing",
+        "tags": ["furniture", "assembly", "bookshelf"],
+        "project": "default"
+    },
+    {
+        "name": "Write a blog post",
+        "description": "Write and publish a blog post on the topic of sustainable living.",
+        "end_date": "2024-04-27",
+        "priority": "medium",
+        "category": "personal",
+        "status": "to-do",
+        "tags": ["blog", "writing", "sustainability"],
+        "project": "Online Presence"
+    },
+    {
+        "name": "Install new kitchen faucet",
+        "description": "Remove the old faucet and install the new one in the kitchen sink.",
+        "end_date": "2024-04-17",
+        "priority": "high",
+        "category": "home",
+        "status": "paused",
+        "tags": ["kitchen", "faucet", "install"],
+        "project": "Home Renovation"
+    },
+    {
+        "name": "Networking event attendance",
+        "description": "Attend the local networking event to make professional connections.",
+        "end_date": "2024-05-10",
+        "priority": "medium",
+        "category": "professional",
+        "status": "to-do",
+        "tags": ["networking", "professional", "event"],
+        "project": "Career Advancement"
+    },
+    {
+        "name": "Prepare for marathon",
+        "description": "Follow the training schedule to prepare for the upcoming marathon.",
+        "end_date": "2024-06-01",
+        "priority": "high",
+        "category": "health & fitness",
+        "status": "doing",
+        "tags": ["marathon", "training", "fitness"],
+        "project": "Health Initiative"
+    },
+    {
+        "name": "Refinance mortgage",
+        "description": "Research options and apply to refinance the home mortgage for a better rate.",
+        "end_date": "2024-05-20",
+        "priority": "critical",
+        "category": "finance",
+        "status": "to-do",
+        "tags": ["finance", "mortgage", "refinance"],
+        "project": "Finance Management"
+    },
+    {
+        "name": "Birthday party planning",
+        "description": "Organize and plan a birthday party for the youngest child.",
+        "end_date": "2024-05-15",
+        "priority": "high",
+        "category": "family",
+        "status": "doing",
+        "tags": ["birthday", "party", "planning"],
+        "project": "Family Events"
+    },
+    {
+        "name": "Update emergency kit",
+        "description": "Check and replenish supplies in the home emergency preparedness kit.",
+        "end_date": "2024-04-29",
+        "priority": "medium",
+        "category": "home",
+        "status": "to-do",
+        "tags": ["emergency", "safety", "preparedness"],
+        "project": "default"
+    },
+    {
+        "name": "Learn to cook Thai food",
+        "description": "Take a cooking class to learn how to make traditional Thai dishes.",
+        "end_date": "2024-04-21",
+        "priority": "low",
+        "category": "learning",
+        "status": "doing",
+        "tags": ["cooking", "Thai food", "learning"],
+        "project": "Skill Development"
+    },
+    {
+        "name": "Conduct market research",
+        "description": "Carry out market research for the new product line proposal.",
+        "end_date": "2024-04-26",
+        "priority": "critical",
+        "category": "professional",
+        "status": "doing",
+        "tags": ["market research", "product", "professional"],
+        "project": "Q2 Projects"
+    },
+    {
+        "name": "Meditation routine",
+        "description": "Establish a daily meditation routine to improve mental health and focus.",
+        "end_date": "2024-05-03",
+        "priority": "medium",
+        "category": "health & fitness",
+        "status": "to-do",
+        "tags": ["meditation", "routine", "mental health"],
+        "project": "Health Initiative"
+    },
+    {
+        "name": "Repair bicycle",
+        "description": "Fix the flat tire and adjust the brakes on the bicycle.",
+        "end_date": "2024-04-13",
+        "priority": "low",
+        "category": "personal",
+        "status": "doing",
+        "tags": ["bicycle", "repair", "maintenance"],
+        "project": "default"
+    },
+    {
+        "name": "Volunteer at local shelter",
+        "description": "Spend a day volunteering at the local homeless shelter.",
+        "end_date": "2024-05-06",
+        "priority": "medium",
+        "category": "personal",
+        "status": "to-do",
+        "tags": ["volunteer", "shelter", "community"],
+        "project": "Community Service"
+    },
+    {
+        "name": "Plan investment strategy",
+        "description": "Meet with a financial advisor to plan a long-term investment strategy.",
+        "end_date": "2024-05-25",
+        "priority": "high",
+        "category": "finance",
+        "status": "to-do",
+        "tags": ["investment", "strategy", "finance"],
+        "project": "Finance Management"
+    },
+    {
+        "name": "Update contact list",
+        "description": "Review and update the contact list with new phone numbers and email addresses.",
+        "end_date": "2024-04-24",
+        "priority": "low",
+        "category": "professional",
+        "status": "paused",
+        "tags": ["contacts", "update", "professional"],
+        "project": "Career Advancement"
+    },
+    {
+        "name": "Create a family tree",
+        "description": "Research and create a detailed family tree going back at least three generations.",
+        "end_date": "2024-05-12",
+        "priority": "low",
+        "category": "family",
+        "status": "to-do",
+        "tags": ["family tree", "genealogy", "research"],
+        "project": "Family History"
+    },
+    {
+        "name": "Learn a new language",
+        "description": "Start learning Spanish through a language app.",
+        "end_date": "2024-05-07",
+        "priority": "medium",
+        "category": "learning",
+        "status": "doing",
+        "tags": ["language", "Spanish", "learning"],
+        "project": "Skill Development"
+    },
+    {
+        "name": "Prepare for client presentation",
+        "description": "Develop and rehearse the presentation for the next client meeting.",
+        "end_date": "2024-04-11",
+        "priority": "critical",
+        "category": "professional",
+        "status": "doing",
+        "tags": ["presentation", "client", "professional"],
+        "project": "Q2 Projects"
+    },
+    {
+        "name": "Organize digital files",
+        "description": "Sort and organize all digital files into properly labeled folders.",
+        "end_date": "2024-05-04",
+        "priority": "medium",
+        "category": "professional",
+        "status": "to-do",
+        "tags": ["digital", "organization", "files"],
+        "project": "Digital Organization"
+    },
+    {
+        "name": "Host a dinner party",
+        "description": "Plan and host a dinner party for friends and family.",
+        "end_date": "2024-05-09",
+        "priority": "medium",
+        "category": "personal",
+        "status": "to-do",
+        "tags": ["dinner", "party", "friends"],
+        "project": "default"
+    },
+    {
+        "name": "Develop a mobile app",
+        "description": "Design and develop a mobile app for managing personal finances.",
+        "end_date": "2024-05-30",
+        "priority": "high",
+        "category": "professional",
+        "status": "doing",
+        "tags": ["mobile app", "finance", "development"],
+        "project": "Tech Projects"
+    },
+    {
+        "name": "Research new business opportunities",
+        "description": "Identify and research potential new business opportunities in the local market.",
+        "end_date": "2024-05-28",
+        "priority": "high",
+        "category": "professional",
+        "status": "to-do",
+        "tags": ["business", "research", "opportunities"],
+        "project": "Business Development"
+    }
+]

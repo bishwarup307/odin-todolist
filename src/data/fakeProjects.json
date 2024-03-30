@@ -1,0 +1,74 @@
+[
+    {
+        "name": "Health Initiative",
+        "description": "A project focused on improving overall health and fitness."
+    },
+    {
+        "name": "default",
+        "description": "General project for tasks that are not assigned to a specific project."
+    },
+    {
+        "name": "Finance Management",
+        "description": "Project aimed at managing and improving financial health."
+    },
+    {
+        "name": "Child's Education",
+        "description": "Dedicated to the educational activities and planning for the child."
+    },
+    {
+        "name": "Reading List",
+        "description": "A project for tracking and managing books to read."
+    },
+    {
+        "name": "Tech Upgrades",
+        "description": "Focused on updating and upgrading technological devices and software."
+    },
+    {
+        "name": "Summer 2024",
+        "description": "Planning and activities related to the summer of 2024."
+    },
+    {
+        "name": "Q2 Projects",
+        "description": "Professional projects slated for completion in the second quarter."
+    },
+    {
+        "name": "Career Advancement",
+        "description": "Tasks and goals aimed at advancing professional career."
+    },
+    {
+        "name": "Home Renovation",
+        "description": "Project for planning and executing home improvement and renovation tasks."
+    },
+    {
+        "name": "Skill Development",
+        "description": "Focused on learning new skills and personal development."
+    },
+    {
+        "name": "Digital Organization",
+        "description": "Organizing and managing digital files and data."
+    },
+    {
+        "name": "Online Presence",
+        "description": "Enhancing and managing online personal or business presence."
+    },
+    {
+        "name": "Family Events",
+        "description": "Planning and organizing family-related events."
+    },
+    {
+        "name": "Community Service",
+        "description": "Volunteer work and service projects in the community."
+    },
+    {
+        "name": "Family History",
+        "description": "Project dedicated to researching and documenting family genealogy."
+    },
+    {
+        "name": "Tech Projects",
+        "description": "Projects related to developing and launching new technology solutions."
+    },
+    {
+        "name": "Business Development",
+        "description": "Focused on exploring and developing new business opportunities."
+    }
+]
