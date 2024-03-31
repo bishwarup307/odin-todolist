@@ -3,6 +3,7 @@ import { isSameDay } from "date-fns";
 import dayjs from "dayjs";
 
 import Task, { TaskList } from "./components/Task";
+import Calendar from "./components/Calendar";
 
 const myDiv = document.createElement("div");
 myDiv.textContent = "Tailwind Starter";
@@ -26,3 +27,7 @@ root.appendChild(myDiv);
 // console.log(dateObject.date());
 
 TaskList.importFakeTasks();
+
+// console.log(dayjs("2024-1-1").month());
+
+// Calendar.save();

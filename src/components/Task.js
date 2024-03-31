@@ -2,6 +2,7 @@ import dayjs from "dayjs";
 import Util from "./Utilities";
 import Project, { ProjectList } from "./Project";
 import fakeTasks from "../data/fakeTasks.json";
+import Calendar from "./Calendar";
 
 const VALID_PRIORITIES = ["critical", "high", "medium", "low"];
 const VALID_STATUS = ["todo", "doing", "done", "paused", "archived"];
@@ -120,8 +121,9 @@ export default class Task {
     }
 
     set endDate(endDate) {
-        if (dayjs(endDate).isValid())
+        if (dayjs(endDate).isValid()) {
             this._endDate = dayjs(endDate).format("YYYY-MM-DD");
+        }
     }
 }
 
@@ -129,8 +131,10 @@ const TaskList = (function Tasks() {
     let taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
 
     function add(task) {
-        if (task instanceof Task) taskList.push(task);
-        else throw new Error("Not a valid task object");
+        if (task instanceof Task) {
+            taskList.push(task);
+            Calendar.createEvent(task);
+        } else throw new Error("Not a valid task object");
     }
 
     function getByStatus(taskStatus) {
@@ -162,13 +166,13 @@ const TaskList = (function Tasks() {
             const newTask = new Task(
                 fakeTask.name,
                 fakeTask.description,
-                fakeTask.endDate,
+                fakeTask.end_date,
                 fakeTask.category,
                 fakeTask.tags,
                 fakeTask.priority,
                 fakeTask.project
             );
-            taskList.push(newTask);
+            add(newTask);
         });
         save();
     }
