@@ -2,7 +2,7 @@ import "./style.css";
 import { isSameDay } from "date-fns";
 import dayjs from "dayjs";
 
-import Task from "./components/Task";
+import Task, { TaskList } from "./components/Task";
 
 const myDiv = document.createElement("div");
 myDiv.textContent = "Tailwind Starter";
@@ -24,3 +24,5 @@ root.appendChild(myDiv);
 // const dateObject = dayjs(date);
 // console.log(date);
 // console.log(dateObject.date());
+
+TaskList.importFakeTasks();

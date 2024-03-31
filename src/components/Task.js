@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import Util from "./Utilities";
 import Project, { ProjectList } from "./Project";
-import fakeTasks from "./data/fakeTasks.json";
+import fakeTasks from "../data/fakeTasks.json";
 
 const VALID_PRIORITIES = ["critical", "high", "medium", "low"];
 const VALID_STATUS = ["todo", "doing", "done", "paused", "archived"];
@@ -34,7 +34,7 @@ export default class Task {
         name,
         description,
         endDate,
-        categories = [],
+        category,
         tags = [],
         priority,
         project
@@ -42,13 +42,19 @@ export default class Task {
         this.name = name;
         this.id = Util.getStrHash(name);
         this.description = description;
-        this._endDate = endDate;
-        this._categoryList = categories;
-        this._tagList = tags;
-        this._priority = priority;
-        this._status = "todo";
-        this._recurring = false;
-        this._paused = false;
+
+        this._endDate = null;
+        this._category = null;
+        this._tagList = [];
+        this._priority = null;
+        this._status = null;
+        this._recurring = null;
+
+        this.endDate = endDate;
+        this.category = category;
+        this.tags = tags;
+        this.status = "todo";
+        this.priority = priority;
 
         const projectObject = ProjectList.find(project);
         if (projectObject) this._project = projectObject;
@@ -62,8 +68,18 @@ export default class Task {
         return this._tagList;
     }
 
-    get categories() {
+    set tags(tags) {
+        this.addTags(...tags);
+    }
+
+    get category() {
         return this._categoryList;
+    }
+
+    set category(category) {
+        if (VALID_CATEGORIES.includes(Util.processString(category)))
+            this._category = Util.processString(category);
+        else throw new Error(`Invalid category specified ${category}`);
     }
 
     get priority() {
@@ -74,19 +90,6 @@ export default class Task {
         if (VALID_PRIORITIES.includes(Util.processString(priority)))
             this._priority = Util.processString(priority);
         else throw new Error(`Invalid priority specified ${priority}`);
-    }
-
-    addCategories(...categories) {
-        categories.forEach((category) => {
-            if (!this._categoryList.includes(Util.processString(category)))
-                this._categoryList.push(Util.processString(category));
-        });
-    }
-
-    removeCategory(category) {
-        this._categoryList = this._categoryList.filter(
-            (cat) => cat !== Util.processString(category)
-        );
     }
 
     addTags(...tags) {
@@ -113,15 +116,16 @@ export default class Task {
     }
 
     get endDate() {
-        return dayjs(en);
+        return this._endDate;
     }
 
     set endDate(endDate) {
-        this._endDate = endDate;
+        if (dayjs(endDate).isValid())
+            this._endDate = dayjs(endDate).format("YYYY-MM-DD");
     }
 }
 
-function TaskList() {
+const TaskList = (function Tasks() {
     let taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
 
     function add(task) {
@@ -147,16 +151,41 @@ function TaskList() {
         );
     }
 
+    function save() {
+        localStorage.setItem("tasks", JSON.stringify(taskList));
+    }
+
     function importFakeTasks() {
+        ProjectList.importFakeProjects();
+
         fakeTasks.forEach((fakeTask) => {
-            const newTask = new Task(fakeTask.name, fakeTask.description, fake);
+            const newTask = new Task(
+                fakeTask.name,
+                fakeTask.description,
+                fakeTask.endDate,
+                fakeTask.category,
+                fakeTask.tags,
+                fakeTask.priority,
+                fakeTask.project
+            );
+            taskList.push(newTask);
         });
+        save();
     }
 
     // function getByDate(taskDeadline) {}
-}
 
-export { VALID_CATEGORIES, categoryColors };
+    return {
+        add,
+        getByStatus,
+        getByPriority,
+        getByProject,
+        save,
+        importFakeTasks,
+    };
+})();
+
+export { TaskList, VALID_CATEGORIES, categoryColors };
 
 // const task1 = new Task("Pay rent", "Need to pay rent for my house", new Date());
 // task1.addCategories("Finance", "Personal");
