@@ -1,4 +1,6 @@
 import "./style.css";
+import { isSameDay } from "date-fns";
+import dayjs from "dayjs";
 
 import Task from "./components/Task";
 
@@ -17,3 +19,8 @@ myDiv.textContent = "Tailwind Starter";
 
 const root = document.querySelector("#root");
 root.appendChild(myDiv);
+
+// const date = dayjs().format("YYYY-MM-DD");
+// const dateObject = dayjs(date);
+// console.log(date);
+// console.log(dateObject.date());

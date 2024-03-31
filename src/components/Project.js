@@ -1,14 +1,20 @@
 import fakeProjects from "../data/fakeProjects.json";
+import Util from "./Utilities";
 
 export default class Project {
     constructor(name, description) {
         this.name = name;
+        this.id = Util.getStrHash(name);
         this.description = description;
+    }
+
+    get displayName() {
+        return Util.toTitleCase(this.name);
     }
 }
 
 const ProjectList = (function Projects() {
-    let projectList = JSON.parse(localStorage.getItem("projects")) || [];
+    let projectList = JSON.parse(localStorage.getItem("projects") || "[]");
 
     function add(project) {
         projectList.push(project);
@@ -22,13 +28,23 @@ const ProjectList = (function Projects() {
         localStorage.setItem("projects", JSON.stringify(projectList));
     }
 
-    return { add, save, getAllProjects };
+    function find(projectName) {
+        return projectList.find(
+            (project) => project.id === Util.getStrHash(projectName)
+        );
+    }
+
+    function importFakeProjects() {
+        fakeProjects.forEach((fakeProject) => {
+            projectList.push(
+                new Project(fakeProject.name, fakeProject.description)
+            );
+        });
+        save();
+    }
+
+    return { add, find, save, getAllProjects, importFakeProjects };
 })();
 
-fakeProjects.forEach((fakeProject) => {
-    ProjectList.add(new Project(fakeProject.name, fakeProject.description));
-});
-
-ProjectList.save();
-
+// ProjectList.importFakeProjects();
 export { ProjectList };

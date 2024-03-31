@@ -1,5 +1,7 @@
-import { format } from "date-fns";
-import Project from "./Project";
+import dayjs from "dayjs";
+import Util from "./Utilities";
+import Project, { ProjectList } from "./Project";
+import fakeTasks from "./data/fakeTasks.json";
 
 const VALID_PRIORITIES = ["critical", "high", "medium", "low"];
 const VALID_STATUS = ["todo", "doing", "done", "paused", "archived"];
@@ -27,8 +29,6 @@ const categoryColors = {
     professional: "#03A9F4",
 };
 
-const processString = (str) => str.trim().toLowerCase();
-
 export default class Task {
     constructor(
         name,
@@ -40,6 +40,7 @@ export default class Task {
         project
     ) {
         this.name = name;
+        this.id = Util.getStrHash(name);
         this.description = description;
         this._endDate = endDate;
         this._categoryList = categories;
@@ -48,6 +49,13 @@ export default class Task {
         this._status = "todo";
         this._recurring = false;
         this._paused = false;
+
+        const projectObject = ProjectList.find(project);
+        if (projectObject) this._project = projectObject;
+    }
+
+    get displayName() {
+        return Util.toTitleCase(this.name);
     }
 
     get tags() {
@@ -63,21 +71,21 @@ export default class Task {
     }
 
     set priority(priority) {
-        if (VALID_PRIORITIES.includes(processString(priority)))
-            this._priority = processString(priority);
+        if (VALID_PRIORITIES.includes(Util.processString(priority)))
+            this._priority = Util.processString(priority);
         else throw new Error(`Invalid priority specified ${priority}`);
     }
 
     addCategories(...categories) {
         categories.forEach((category) => {
-            if (!this._categoryList.includes(processString(category)))
-                this._categoryList.push(processString(category));
+            if (!this._categoryList.includes(Util.processString(category)))
+                this._categoryList.push(Util.processString(category));
         });
     }
 
     removeCategory(category) {
         this._categoryList = this._categoryList.filter(
-            (cat) => cat !== processString(category)
+            (cat) => cat !== Util.processString(category)
         );
     }
 
@@ -89,19 +97,23 @@ export default class Task {
 
     removeTag(tagName) {
         this._tagList = this._tagList.filter(
-            (tag) => tag !== processString(tagName)
+            (tag) => tag !== Util.processString(tagName)
         );
     }
 
-    changeStatus(newStatus) {
-        newStatus = processString(newStatus);
+    get status() {
+        return this._status;
+    }
+
+    set status(newStatus) {
+        newStatus = Util.processString(newStatus);
         if (this._status === newStatus) return;
 
         if (VALID_STATUS.includes(newStatus)) this._status = newStatus;
     }
 
     get endDate() {
-        return format(this._endDate, "dd MMM, yyyy");
+        return dayjs(en);
     }
 
     set endDate(endDate) {
@@ -109,12 +121,47 @@ export default class Task {
     }
 }
 
+function TaskList() {
+    let taskList = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+    function add(task) {
+        if (task instanceof Task) taskList.push(task);
+        else throw new Error("Not a valid task object");
+    }
+
+    function getByStatus(taskStatus) {
+        return taskList.filter(
+            (task) => task.status === Util.processString(taskStatus)
+        );
+    }
+
+    function getByProject(projectName) {
+        return taskList.filter(
+            (task) => task.project.id === Util.getStrHash(projectName)
+        );
+    }
+
+    function getByPriority(taskPriority) {
+        return taskList.filter(
+            (task) => task.priority === Util.processString(taskPriority)
+        );
+    }
+
+    function importFakeTasks() {
+        fakeTasks.forEach((fakeTask) => {
+            const newTask = new Task(fakeTask.name, fakeTask.description, fake);
+        });
+    }
+
+    // function getByDate(taskDeadline) {}
+}
+
 export { VALID_CATEGORIES, categoryColors };
 
-const task1 = new Task("Pay rent", "Need to pay rent for my house", new Date());
-task1.addCategories("Finance", "Personal");
-task1.addTags("loan", "car-loan");
-task1.priority = "high";
-task1.changeStatus("done");
-task1.endDate = new Date(2024, 6, 19);
-console.log(task1.endDate);
+// const task1 = new Task("Pay rent", "Need to pay rent for my house", new Date());
+// task1.addCategories("Finance", "Personal");
+// task1.addTags("loan", "car-loan");
+// task1.priority = "high";
+// task1.changeStatus("done");
+// task1.endDate = new Date(2024, 6, 19);
+// console.log(task1.endDate);
