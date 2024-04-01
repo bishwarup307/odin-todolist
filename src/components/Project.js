@@ -35,6 +35,8 @@ const ProjectList = (function Projects() {
     }
 
     function importFakeProjects() {
+        if (projectList.length > 0) return;
+
         fakeProjects.forEach((fakeProject) => {
             projectList.push(
                 new Project(fakeProject.name, fakeProject.description)

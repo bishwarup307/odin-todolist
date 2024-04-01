@@ -162,6 +162,8 @@ const TaskList = (function Tasks() {
     function importFakeTasks() {
         ProjectList.importFakeProjects();
 
+        if (taskList.length > 0) return;
+
         fakeTasks.forEach((fakeTask) => {
             const newTask = new Task(
                 fakeTask.name,

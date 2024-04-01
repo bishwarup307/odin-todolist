@@ -28,6 +28,9 @@ root.appendChild(myDiv);
 
 TaskList.importFakeTasks();
 
+// console.log(Calendar.getMonth(3));
+console.log(Calendar.getWeekDisplay(0));
+
 // console.log(dayjs("2024-1-1").month());
 
 // Calendar.save();
