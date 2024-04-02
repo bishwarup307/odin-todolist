@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+    @apply text-textPrimary;
+}
+
+button {
+    @apply cursor-pointer;
+}
+
+.form-icon {
+    width: 24px;
+    height: 24px;
+    /* fill: text-textPrimary; */
+}
+
+.focused {
+    background-color: hsl(211, 70%, 20%);
+    color: white !important;
+}

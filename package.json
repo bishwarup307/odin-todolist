@@ -27,6 +27,8 @@
     },
     "dependencies": {
         "date-fns": "^3.6.0",
-        "dayjs": "^1.11.10"
+        "dayjs": "^1.11.10",
+        "flowbite": "^2.3.0",
+        "flowbite-datepicker": "^1.2.6"
     }
 }

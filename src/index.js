@@ -4,22 +4,24 @@ import dayjs from "dayjs";
 
 import Task, { TaskList } from "./components/Task";
 import Calendar from "./components/Calendar";
+import Landing from "./components/Landing";
 
-const myDiv = document.createElement("div");
-myDiv.textContent = "Tailwind Starter";
+// const myDiv = document.createElement("div");
+// myDiv.textContent = "Tailwind Starter";
 
-[
-    "text-6xl",
-    "text-textPrimary",
-    "flex",
-    "justify-center",
-    "mt-8",
-    "font-albert",
-    "font-bold",
-].forEach((cls) => myDiv.classList.add(cls));
+// [
+//     "text-6xl",
+//     "text-textPrimary",
+//     "flex",
+//     "justify-center",
+//     "mt-8",
+//     "font-albert",
+//     "font-bold",
+// ].forEach((cls) => myDiv.classList.add(cls));
 
-const root = document.querySelector("#root");
-root.appendChild(myDiv);
+// const root = document.querySelector("#root");
+
+root.appendChild(Landing());
 
 // const date = dayjs().format("YYYY-MM-DD");
 // const dateObject = dayjs(date);
@@ -29,8 +31,10 @@ root.appendChild(myDiv);
 TaskList.importFakeTasks();
 
 // console.log(Calendar.getMonth(3));
-console.log(Calendar.getWeekDisplay(0));
+// console.log(Calendar.getWeekDisplay(0));
 
 // console.log(dayjs("2024-1-1").month());
 
 // Calendar.save();
+
+// console.log(dayjs.unix(1719340200000 / 1000).format());
