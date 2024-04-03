@@ -16,6 +16,11 @@ button {
     /* fill: text-textPrimary; */
 }
 
+.form-icon-calendar {
+    width: 28px;
+    height: 28px;
+}
+
 .focused {
     background-color: hsl(211, 70%, 20%);
     color: white !important;

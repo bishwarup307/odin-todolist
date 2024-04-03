@@ -4,7 +4,7 @@ const util = (function utility() {
         str[0].toUpperCase() + str.slice(1).toLowerCase();
 
     const toTitleCase = (str) => {
-        words = str.split(" ").map(capitalize);
+        const words = str.split(" ").map(capitalize);
         return words.join(" ");
     };
     const getStrHash = (str) => str.replaceAll(" ", "").toLowerCase();

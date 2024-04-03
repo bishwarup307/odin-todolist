@@ -4,17 +4,18 @@ import AddTask from "./AddTask";
 export default function Landing() {
     let classNames;
 
+    const parentContainer = document.createElement("div");
+    parentContainer.className = "bg-hero bg-cover bg-center";
+
     // container for content
-    classNames = "flex flex-col items-center justify-center mx-auto px-16";
     const container = document.createElement("div");
-    classNames.split(" ").forEach((cls) => container.classList.add(cls));
+    container.className =
+        "flex flex-col h-lvh items-center justify-start mx-auto px-8 gap-8 bg-white/50 backdrop-blur-sm lg:flex-row lg:max-w-7xl";
 
     // Logo
     const logoContainer = document.createElement("div");
-    classNames = "flex flex-col justify-center items-center mt-16";
-    classNames.split(" ").forEach((cls) => {
-        logoContainer.classList.add(cls);
-    });
+    logoContainer.className =
+        "flex flex-col justify-center items-center mt-16 lg:mt-0";
 
     const logo = document.createElement("img");
     classNames = "w-80";
@@ -24,7 +25,7 @@ export default function Landing() {
     });
     logoContainer.appendChild(logo);
 
-    classNames = "text-3xl text-center mt-8";
+    classNames = "text-2xl text-center mt-8 letter-tighter";
     const logoText = document.createElement("p");
     logoText.textContent =
         "Capture tasks, conquer chaos. Your productivity powerhouse awaits.";
@@ -46,5 +47,6 @@ export default function Landing() {
 
     container.appendChild(AddTask());
 
-    return container;
+    parentContainer.appendChild(container);
+    return parentContainer;
 }

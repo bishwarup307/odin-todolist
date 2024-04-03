@@ -191,7 +191,7 @@ const TaskList = (function Tasks() {
     };
 })();
 
-export { TaskList, VALID_CATEGORIES, categoryColors };
+export { TaskList, VALID_CATEGORIES, VALID_PRIORITIES, categoryColors };
 
 // const task1 = new Task("Pay rent", "Need to pay rent for my house", new Date());
 // task1.addCategories("Finance", "Personal");

@@ -15,14 +15,19 @@ module.exports = {
             xl: "1440px",
         },
         extend: {
+            backgroundImage: {
+                hero: "url('/src/assets/hero.png')",
+            },
             fontFamily: {
-                sans: ["Albert Sans", "sans-serif"],
+                sans: ["Karla", "sans-serif"],
+                fa: "Font Awesome 5 Free",
             },
             colors: {
                 textPrimary: "hsl(197, 94%, 10%)",
                 bgPrimary: "hsl(211, 70%, 20%)",
                 bgLighter: "hsl(211, 70%, 40%)",
                 bgLight: "hsl(211, 70%, 60%)",
+                bgExtraLight: "hsl(211, 70%, 80%)",
                 accent: "hsl(196, 24%, 46%)",
                 "accent-600": "hsl(196, 24%, 76%)",
                 ashGray: "hsl(126, 15%, 72%)",
