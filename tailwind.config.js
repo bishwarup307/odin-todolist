@@ -24,6 +24,8 @@ module.exports = {
             },
             colors: {
                 textPrimary: "hsl(197, 94%, 10%)",
+                textPrimaryLight: "hsl(197, 94%, 20%)",
+                textPrimaryLighter: "hsl(197, 94%, 30%)",
                 bgPrimary: "hsl(211, 70%, 20%)",
                 bgLighter: "hsl(211, 70%, 40%)",
                 bgLight: "hsl(211, 70%, 60%)",

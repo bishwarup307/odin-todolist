@@ -11,6 +11,7 @@ export default function AddTask() {
         "flex flex-col gap-2 w-full rounded-2xl border-gray-400 px-4 py-4 shadow-lg bg-white bg-opacity-90 xl:px-8 xl:py-8";
 
     const taskInput = document.createElement("textarea");
+    taskInput.id = "form-task-input";
     taskInput.placeholder = "Add a new task...";
     taskInput.className =
         "w-full h-32 resize-none border-none focus:outline-none active:border-none bg-white bg-opacity-10 lg:text-2xl";
@@ -61,6 +62,7 @@ export default function AddTask() {
     const tagInput = document.createElement("input");
     tagInput.type = "text";
     tagInput.id = "form-tag-input";
+    tagInput.placeholder = "Add a tag";
     tagInput.className =
         "w-28 py-1 hidden justify-center items-center border-2 rounded-full text-xs font-medium origin-bottom-left transition-width duration-500 px-4 focus:outline-none lg:w-32 lg:text-sm";
     tagDiv.appendChild(tagInput);
@@ -194,6 +196,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     btnPrevMonth.addEventListener("click", blurPrevNextMonth);
     btnNextMonth.addEventListener("click", blurPrevNextMonth);
+
+    document.querySelector("#form-task-input").focus();
 });
 
 function createTag(content) {

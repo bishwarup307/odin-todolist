@@ -25,27 +25,33 @@ export default function Landing() {
     });
     logoContainer.appendChild(logo);
 
-    classNames = "text-2xl text-center mt-8 letter-tighter";
     const logoText = document.createElement("p");
+    logoText.className =
+        "text-2xl text-center mt-8 text-textPrimaryLight letter-tighter lg:font-medium";
     logoText.textContent =
         "Capture tasks, conquer chaos. Your productivity powerhouse awaits.";
-    classNames.split(" ").forEach((cls) => {
-        logoText.classList.add(cls);
-    });
+
     logoContainer.appendChild(logoText);
 
-    classNames =
-        "mt-8 rounded-full border-2 border-transparent bg-bgPrimary font-medium py-2 px-8 text-xl text-white transition hover:bg-white hover:text-bgPrimary hover:border-bgPrimary";
     const gotoTaskBtn = document.createElement("button");
+    gotoTaskBtn.className =
+        "mt-8 rounded-full border-2 border-transparent bg-bgPrimary font-medium py-2 px-8 text-xl text-white transition hover:bg-white hover:text-bgPrimary hover:border-bgPrimary";
     gotoTaskBtn.textContent = "Go to My Tasks";
-    classNames.split(" ").forEach((cls) => {
-        gotoTaskBtn.classList.add(cls);
-    });
     logoContainer.appendChild(gotoTaskBtn);
 
     container.appendChild(logoContainer);
 
-    container.appendChild(AddTask());
+    const addTaskContainer = document.createElement("div");
+    addTaskContainer.className = "flex flex-col gap-4 w-full items-end";
+
+    addTaskContainer.appendChild(AddTask());
+
+    const importTask = document.createElement("p");
+    importTask.className = "text-sm lg:text-base";
+    importTask.innerHTML = `Not sure? <span id='import-task' class='underline cursor-pointer text-amber-600 font-bold import-task'>Import model tasks </span> to get started and edit them on the fly.`;
+
+    addTaskContainer.appendChild(importTask);
+    container.appendChild(addTaskContainer);
 
     parentContainer.appendChild(container);
     return parentContainer;
