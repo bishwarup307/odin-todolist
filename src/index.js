@@ -28,7 +28,7 @@ root.appendChild(Landing());
 // console.log(date);
 // console.log(dateObject.date());
 
-TaskList.importFakeTasks();
+// TaskList.importFakeTasks();
 
 // console.log(Calendar.getMonth(3));
 // console.log(Calendar.getWeekDisplay(0));

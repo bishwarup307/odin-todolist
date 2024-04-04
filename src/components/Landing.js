@@ -1,5 +1,6 @@
 import Logo from "../assets/logo-color.png";
 import AddTask from "./AddTask";
+import { TaskList } from "./Task";
 
 export default function Landing() {
     let classNames;
@@ -48,7 +49,28 @@ export default function Landing() {
 
     const importTask = document.createElement("p");
     importTask.className = "text-sm lg:text-base";
-    importTask.innerHTML = `Not sure? <span id='import-task' class='underline cursor-pointer text-amber-600 font-bold import-task'>Import model tasks </span> to get started and edit them on the fly.`;
+
+    // Create the text node for the initial part of the paragraph
+    const initialText = document.createTextNode("Not sure? ");
+    importTask.appendChild(initialText);
+
+    // Create the span element
+    const spanElement = document.createElement("span");
+    spanElement.id = "import-task";
+    spanElement.className =
+        "underline cursor-pointer px-2 py-1 rounded-xl font-bold bg-orange-500 text-white import-task";
+    spanElement.textContent = "Import model tasks";
+
+    spanElement.addEventListener("click", TaskList.importFakeTasks);
+
+    // Append the span to the paragraph
+    importTask.appendChild(spanElement);
+
+    // Create the text node for the remaining part of the paragraph
+    const remainingText = document.createTextNode(
+        " to get started and edit them on the fly."
+    );
+    importTask.appendChild(remainingText);
 
     addTaskContainer.appendChild(importTask);
     container.appendChild(addTaskContainer);

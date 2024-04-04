@@ -254,3 +254,5 @@ function makeInput(type, btn) {
 
     return input;
 }
+
+export { createTag };
