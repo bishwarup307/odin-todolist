@@ -41,7 +41,6 @@ export default class Task {
         project
     ) {
         this.name = name;
-        this.id = Util.getStrHash(name);
         this.description = description;
 
         this._endDate = null;
@@ -61,6 +60,10 @@ export default class Task {
         if (projectObject) this._project = projectObject;
     }
 
+    get id() {
+        return Util.getStrHash(this.name);
+    }
+
     get displayName() {
         return Util.toTitleCase(this.name);
     }
@@ -74,7 +77,7 @@ export default class Task {
     }
 
     get category() {
-        return this._categoryList;
+        return this._category;
     }
 
     set category(category) {
@@ -137,6 +140,35 @@ const TaskList = (function Tasks() {
         } else throw new Error("Not a valid task object");
     }
 
+    function findTask(taskId) {
+        return taskList.find((task) => task.id === taskId);
+    }
+
+    function editTask(taskId, newTask, ...callbacks) {
+        const task = findTask(taskId);
+
+        if (!task) return;
+
+        task.name = newTask.name;
+        task.description = newTask.description;
+        task.category = newTask.category;
+        task.tags = [];
+        task.tags = newTask.tags;
+        task.priority = newTask.priority;
+        task.endDate = newTask.endDate;
+
+        for (let callback of callbacks) callback();
+    }
+
+    function updateStatus(taskId, newStatus, ...callbacks) {
+        const task = findTask(taskId);
+
+        if (!task) return;
+        task.status = newStatus;
+
+        for (let callback of callbacks) callback();
+    }
+
     function getByStatus(taskStatus) {
         return taskList.filter(
             (task) => task.status === Util.processString(taskStatus)
@@ -188,15 +220,9 @@ const TaskList = (function Tasks() {
         getByProject,
         save,
         importFakeTasks,
+        updateStatus,
+        editTask,
     };
 })();
 
 export { TaskList, VALID_CATEGORIES, VALID_PRIORITIES, categoryColors };
-
-// const task1 = new Task("Pay rent", "Need to pay rent for my house", new Date());
-// task1.addCategories("Finance", "Personal");
-// task1.addTags("loan", "car-loan");
-// task1.priority = "high";
-// task1.changeStatus("done");
-// task1.endDate = new Date(2024, 6, 19);
-// console.log(task1.endDate);
