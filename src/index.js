@@ -23,11 +23,11 @@ import TaskView from "./components/TaskView";
 const root = document.querySelector("#root");
 
 const landingPage = Landing();
-landingPage.style.display = "none";
+// landingPage.style.display = "none";
 root.appendChild(landingPage);
 
 // console.log(TaskList.get()[0]);
-root.appendChild(TaskView());
+// root.appendChild(TaskView());
 
 // const date = dayjs().format("YYYY-MM-DD");
 // const dateObject = dayjs(date);

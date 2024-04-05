@@ -90,6 +90,7 @@ export default class Task {
         this.status = "todo";
         this.priority = priority;
 
+        if (typeof project === "string") project = { name: project };
         const projectObject = ProjectList.find(project);
         if (projectObject) this._project = projectObject;
     }
