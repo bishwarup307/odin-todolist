@@ -4,9 +4,10 @@ import Project, { ProjectList } from "./Project";
 import fakeTasks from "../data/fakeTasks.json";
 import Calendar from "./Calendar";
 import util from "./Utilities";
+import Datepicker from "flowbite-datepicker/Datepicker";
 
 const VALID_PRIORITIES = ["critical", "high", "medium", "low"];
-const VALID_STATUS = ["todo", "doing", "done", "paused", "archived"];
+const VALID_STATUS = ["to-do", "doing", "done", "paused", "archived"];
 const VALID_CATEGORIES = [
     "child",
     "education",
@@ -30,7 +31,7 @@ const categoryColors = {
     },
     family: {
         color: "#F17300",
-        icon: `<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0{fill:#F17300;} </style> <g> <path class="st0" d="M78.642,118.933c22.879,0,41.415-18.551,41.415-41.414c0-22.888-18.536-41.423-41.415-41.423 c-22.887,0-41.422,18.535-41.422,41.423C37.219,100.383,55.755,118.933,78.642,118.933z"></path> <path class="st0" d="M255.706,228.731v0.062c0.101,0,0.193-0.031,0.294-0.031c0.101,0,0.194,0.031,0.294,0.031v-0.062 c15.563-0.317,28.082-12.976,28.082-28.601c0-15.648-12.52-28.299-28.082-28.617v-0.062c-0.1,0-0.193,0.031-0.294,0.031 c-0.101,0-0.193-0.031-0.294-0.031v0.062c-15.563,0.318-28.082,12.969-28.082,28.617 C227.624,215.754,240.143,228.413,255.706,228.731z"></path> <path class="st0" d="M433.358,118.933c22.887,0,41.423-18.551,41.423-41.414c0-22.888-18.536-41.423-41.423-41.423 c-22.879,0-41.414,18.535-41.414,41.423C391.944,100.383,410.48,118.933,433.358,118.933z"></path> <path class="st0" d="M512,319.675V180.463c0-20.076-21.834-41.91-41.903-41.91h-5.799l-28.818,28.818l-28.214-28.214 c-17.839,2.609-33.564,13.665-41.918,30.018l-33.494,97.967c-1.154,2.245-3.298,3.84-5.792,4.281 c-2.493,0.442-5.048-0.31-6.914-2.036l-20.835-18.04c-6.232-5.769-14.409-8.974-22.902-8.974H256h-19.41 c-8.494,0-16.67,3.206-22.903,8.974l-20.835,18.04c-1.866,1.726-4.422,2.478-6.914,2.036c-2.494-0.442-4.638-2.036-5.792-4.281 l-33.494-97.967c-9.6-18.791-28.926-30.622-50.032-30.622H78.216H41.903C21.834,138.553,0,160.387,0,180.463v139.211 c0,10.035,8.13,18.172,18.165,18.172c4.939,0,0,0,12.682,0l6.906,118.724c0,10.677,8.664,19.333,19.341,19.333 c4.506,0,12.814,0,21.122,0c8.307,0,16.615,0,21.121,0c10.677,0,19.341-8.656,19.341-19.333l6.906-118.724l-0.086-84.765 c0-1.339,0.914-2.493,2.222-2.818c1.309-0.31,2.648,0.309,3.26,1.502l26.573,65.401c3.205,6.256,9.152,10.654,16.074,11.886 c6.921,1.23,14.021-0.844,19.186-5.614l25.426-18.729c0.852-0.782,2.083-0.983,3.136-0.542c1.061,0.472,1.742,1.518,1.742,2.663 l0.094,73.508l4.777,82.187c0,7.387,6,13.379,13.395,13.379c3.112,0,8.865,0,14.618,0c5.753,0,11.506,0,14.618,0 c7.394,0,13.394-5.992,13.394-13.379l4.777-82.187l0.093-73.508c0-1.146,0.681-2.192,1.742-2.663 c1.053-0.442,2.284-0.24,3.136,0.542l25.426,18.729c5.164,4.77,12.264,6.844,19.187,5.614c6.921-1.231,12.868-5.629,16.073-11.886 l26.572-65.401c0.612-1.192,1.951-1.812,3.26-1.502c1.308,0.325,2.222,1.479,2.222,2.818l-0.031,32.332l-27.881,86.648 c-0.659,2.051-0.302,4.296,0.967,6.039c1.27,1.742,3.298,2.772,5.451,2.772h23.91l4.405,75.699 c0,10.677,8.664,19.333,19.341,19.333c4.506,0,12.814,0,21.121,0c8.308,0,16.615,0,21.122,0c10.677,0,19.34-8.656,19.34-19.333 l4.406-75.699h26.418c2.152,0,4.181-1.03,5.451-2.772c1.27-1.743,1.626-3.988,0.968-6.039L500.1,336.67 C507.037,334.107,512,327.495,512,319.675z M85.424,159.087v74.592H63.389v-74.592H85.424z"></path> </g> </g></svg>`,
+        icon: `<svg fill="#F17300" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 503.847 503.847" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M103.547,103.436c28.558,0,51.715-23.156,51.715-51.718C155.262,23.153,132.105,0,103.547,0 C74.982,0,51.83,23.152,51.83,51.718C51.829,80.28,74.982,103.436,103.547,103.436z"></path> <path d="M400.747,118.051c0.376,0.008,0.752,0.012,1.127,0.012c18.02,0,35.058-9.75,44.219-25.264 c9.29-15.733,9.394-35.819,0.265-51.647c-8.991-15.594-25.917-25.522-43.92-25.716c-18.033-0.194-35.186,9.373-44.513,24.809 c-9.45,15.637-9.761,35.72-0.797,51.642C365.952,107.559,382.761,117.664,400.747,118.051z"></path> <path d="M498.282,270.474c0.003,0.093,0.003,0.046-0.003-0.292c-0.041-1.54-0.036-1.25-0.023-0.697 c-0.341-12.033-1.179-24.021-3.016-35.929c-1.979-12.832-5.172-25.453-9.58-37.662c-8.343-23.099-22.681-45.266-43.003-59.531 c-4.214-2.988-8.784-5.375-13.312-7.869c-17.333-9.547-37.083-9.547-54.589-0.231c-21.516,11.452-38.917,29.724-50.131,51.018 c-5.997,11.385-10.272,23.512-13.609,35.912c-3.33,12.372-5.056,25.072-6.327,37.795c-1.143,11.437-1.077,22.965-0.97,34.44 c0.011,0.832,0.106,1.646,0.25,2.445c-3.478,2.024-7.211,3.519-11.401,4.083c-7.051,0.949-14.787-0.928-20.056-5.553 c-12.614-11.072-28.902-10.197-41.758,0.063c-5.452,4.353-12.953,6.433-19.967,5.488c-5.038-0.679-9.423-2.7-13.489-5.378 c0.572-1.307,0.98-2.711,1.173-4.196l0.016-0.115c0,0,0.375-2.911,0.902-8.043c0.519-5.133,1.177-12.493,1.502-21.44 c0.318-8.945,0.318-19.482-0.624-30.915c-0.947-11.423-2.827-23.762-6.303-36.072c-3.443-12.296-8.554-24.561-15.299-35.396 c-3.363-5.414-7.105-10.462-11.077-14.986c-3.968-4.528-8.16-8.529-12.335-11.941c-8.364-6.849-16.583-11.26-22.879-13.87 c-3.162-1.314-5.842-2.197-7.991-2.788c-12.688-3.469-27.115-2.971-39.203-0.705c-0.958,0.187-1.882,0.407-2.97,0.705 c-2.147,0.591-4.828,1.474-7.99,2.788c-6.296,2.61-14.516,7.021-22.879,13.871c-4.176,3.412-8.366,7.412-12.335,11.941 c-3.971,4.524-7.713,9.572-11.075,14.986c-6.745,10.835-11.857,23.1-15.299,35.396c-3.477,12.311-5.355,24.649-6.303,36.071 c-0.942,11.433-0.941,21.969-0.623,30.915c0.325,8.947,0.984,16.309,1.501,21.44c0.527,5.132,0.904,8.043,0.904,8.043l0.022,0.179 c1.035,7.815,7.898,13.679,15.922,13.318c8.48-0.38,15.045-7.562,14.666-16.042c0,0-0.122-2.707-0.21-7.423 c-0.081-4.714-0.115-11.439,0.264-19.411c0.381-7.964,1.169-17.182,2.778-26.746c1.605-9.555,4.028-19.461,7.489-28.625 c1.943-5.201,4.233-10.131,6.764-14.665l-11.32,93.46c-0.524,4.557-0.576,9.551,0,14.307c1.182,9.754,4.675,18.66,9.845,26.261 l7.962,167.901c0.461,9.11,7.79,16.629,17.09,17.047c9.883,0.442,18.253-7.209,18.697-17.092l5.686-126.83l5.912,126.858 c0.454,9.113,7.775,16.637,17.076,17.062c9.882,0.453,18.259-7.193,18.711-17.076l7.693-168.491 c7.521-11.366,11.208-25.354,9.44-39.946l-11.184-92.338c2.284,4.222,4.356,8.771,6.14,13.543 c3.46,9.163,5.883,19.07,7.488,28.625c1.608,9.563,2.396,18.781,2.778,26.746c0.38,7.971,0.345,14.697,0.265,19.411 c-0.088,4.716-0.21,7.423-0.21,7.423c-0.305,7.27,4.567,13.797,11.578,15.574c5.703,6.244,11.946,11.561,19.667,15.176 c7.032,3.297,14.95,4.676,22.683,4.248v25.023l0.085,4.089l-16.987,76.407c-0.35,1.788,0.113,3.622,1.27,5.027 c1.159,1.409,2.869,2.217,4.691,2.217h12.674l2.923,64.447c0.267,5.478,4.937,9.937,10.425,9.913 c5.423-0.021,10.019-4.403,10.314-9.813l3.54-64.547h1.394l2.923,64.447c0.269,5.478,4.937,9.937,10.425,9.913 c5.424-0.021,10.02-4.403,10.314-9.813l3.54-64.547h12.538c1.818,0,3.525-0.806,4.685-2.21c1.159-1.403,1.625-3.23,1.272-5.055 l-16.385-74.932l0.086-4.632v-25.938c7.604,0.427,15.404-0.899,22.35-4.082c5.606-2.567,10.438-6.056,14.85-10.132 c7.888,0.116,14.763-6.062,15.414-13.966c0.314-3.81,0.522-7.644,0.963-11.438c0.688-5.925,1.473-11.812,2.393-17.705 c1.929-12.356,5.261-24.561,9.628-36.268c1.092-2.927,2.292-5.841,3.617-8.671l0.536,36.234l-29.21,131.386 c-0.592,3.021,0.188,6.117,2.143,8.492c1.958,2.377,4.845,3.739,7.922,3.739h23.14l4.481,92.618 c0.482,9.291,8.368,16.871,17.681,16.918c9.259,0.046,17.188-7.342,17.812-16.575c0.005-0.095,0.011-0.188,0.016-0.281l4.8-92.68 h4.168l4.481,92.618c0.482,9.291,8.369,16.871,17.681,16.918c9.258,0.046,17.188-7.342,17.811-16.575 c0.006-0.095,0.012-0.188,0.017-0.282l4.799-92.679h22.364c3.07,0,5.954-1.357,7.91-3.728c1.955-2.37,2.743-5.459,2.146-8.534 l-28.855-131.978l0.412-35.663c4.974,11.813,8.285,26.446,10.691,39.015c2.078,10.846,3.173,21.794,4.081,32.789 c0.022,0.268,0.044,0.535,0.066,0.803c0.691,8.033,7.816,14.25,15.859,13.9c7.979-0.348,14.478-7.084,14.561-15.065 C498.312,280.722,498.379,275.6,498.282,270.474z"></path> <path d="M241.025,275.105c3.393,1.286,7.014,1.942,10.643,1.942c9.953,0,19.433-5.086,24.953-13.365 c5.601-8.397,6.565-19.363,2.518-28.611c-3.942-9.014-12.307-15.678-21.983-17.468c-9.893-1.83-20.247,1.515-27.188,8.795 c-6.948,7.291-9.791,17.832-7.462,27.632C224.777,263.593,231.839,271.613,241.025,275.105z"></path> </g> </g> </g></svg>`,
     },
     finance: {
         color: "#f2c643",
@@ -87,7 +88,7 @@ export default class Task {
         this.endDate = endDate;
         this.category = category;
         this.tags = tags;
-        this.status = "todo";
+        this.status = "to-do";
         this.priority = priority;
 
         if (typeof project === "string") project = { name: project };
@@ -257,9 +258,16 @@ export default class Task {
 
             this.tags.forEach((tag) => {
                 const tagDisplay = document.createElement("div");
-                tagDisplay.className =
-                    "rounded-md bg-bgLightest text-textPrimary font-medium text-xs px-2 py-0.5 lg:text-sm lg:px-2 lg:py-1";
 
+                tagDisplay.className =
+                    "rounded-md font-medium text-xs px-2 py-0.5 lg:text-sm lg:px-2 lg:py-1";
+
+                tagDisplay.style.backgroundColor =
+                    getColor(this.category) + "20";
+                tagDisplay.style.color = util.adjustColor(
+                    getColor(this.category),
+                    -50
+                );
                 tagDisplay.textContent = `#${tag
                     .toLowerCase()
                     .replaceAll(" ", "-")}`;
@@ -273,13 +281,95 @@ export default class Task {
         taskContainer.appendChild(leftDiv);
 
         const rightDiv = document.createElement("div");
-        rightDiv.className = "flex flex-col justify-between ml-auto";
+        rightDiv.className = "flex flex-col justify-between items-end ml-auto";
 
         const categoryIconDiv = document.createElement("div");
         categoryIconDiv.className = "w-10";
         categoryIconDiv.innerHTML = categoryColors[this.category].icon;
         rightDiv.appendChild(categoryIconDiv);
+
+        const btnEditTask = document.createElement("button");
+        btnEditTask.className =
+            "mt-auto w-8 px-1 py-1 rounded-full border-2 border-slate-300 fill-slate-300 hover:border-slate-500 hover:fill-slate-500";
+        btnEditTask.innerHTML = `<svg viewBox="-5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>pencil</title> <path d="M18.344 4.781l-3.406 3.063s1.125 0.688 2.156 1.656c1 0.969 1.719 2.063 1.719 2.063l2.906-3.469s-0.031-0.625-1.406-1.969c-1.406-1.344-1.969-1.344-1.969-1.344zM7.25 21.938l-0.156 1.5 10.813-11.25s-0.719-1-1.594-1.844c-0.906-0.875-1.938-1.563-1.938-1.563l-10.813 11.25 1.688-0.094 0.188 1.813zM0 26.719l2.688-5.5 1.5-0.125 0.125 1.719 1.813 0.25-0.188 1.375-5.438 2.75z"></path> </g></svg>`;
+        rightDiv.appendChild(btnEditTask);
+
         taskContainer.appendChild(rightDiv);
+
+        const modal = document.createElement("dialog");
+        modal.className = "w-3/4 lg:w-1/2 max-w-[600px] rounded-lg";
+
+        const modalContainer = document.createElement("div");
+        modalContainer.className = "flex flex-col px-8 py-8 gap-4";
+
+        const editTaskDiv = document.createElement("div");
+        editTaskDiv.className = "relative flex-1";
+
+        const editTitle = document.createElement("input");
+        editTitle.id = "input-edit-title";
+        editTitle.className =
+            "w-full h-16 border-2 border-black rounded-md px-2";
+        editTitle.value = this.name;
+        editTaskDiv.appendChild(editTitle);
+
+        const labelEditTitle = document.createElement("label");
+        labelEditTitle.for = "input-edit-title";
+        labelEditTitle.textContent = "Title";
+        labelEditTitle.className =
+            "absolute top-[-12%] start-4 bg-white px-2 font-bold text-slate-500";
+        editTaskDiv.appendChild(labelEditTitle);
+
+        const editDescriptionDiv = document.createElement("div");
+        editDescriptionDiv.className = "relative";
+
+        const editDescription = document.createElement("textarea");
+        editDescription.id = "input-edit-description";
+        editDescription.className =
+            "w-full h-24 border-2 border-black rounded-md px-2 py-3 resize-none";
+        editDescription.value = this.description;
+        editDescriptionDiv.appendChild(editDescription);
+
+        const labelEditDescription = document.createElement("label");
+        labelEditDescription.for = "input-edit-description";
+        labelEditDescription.textContent = "Description";
+        labelEditDescription.className =
+            "absolute top-[-12%] start-4 bg-white px-2 font-bold text-slate-500";
+        editDescriptionDiv.appendChild(labelEditDescription);
+
+        const calendarDiv = document.createElement("div");
+        calendarDiv.className = "flex gap-2";
+
+        const changeCategory = document.createElement("select");
+        changeCategory.className =
+            "rounded-lg border-2 border-black px-2 py-2 flex-1";
+        VALID_CATEGORIES.forEach((category) => {
+            let option = document.createElement("option");
+            option.textContent = util.toTitleCase(category);
+            option.value = category;
+
+            if (category === this.category) option.setAttribute("selected", "");
+            changeCategory.appendChild(option);
+        });
+        calendarDiv.appendChild(changeCategory);
+
+        const datePicker = document.createElement("input");
+        datePicker.type = "date";
+        datePicker.value = this.endDate;
+        datePicker.className =
+            "border-2 border-black rounded-lg px-2 py-2 w-auto";
+        calendarDiv.appendChild(datePicker);
+
+        modalContainer.appendChild(editTaskDiv);
+        modalContainer.appendChild(editDescriptionDiv);
+        modalContainer.appendChild(calendarDiv);
+
+        modal.appendChild(modalContainer);
+
+        taskContainer.appendChild(modal);
+
+        btnEditTask.addEventListener("click", () => {
+            modal.showModal();
+        });
 
         return taskContainer;
     }
