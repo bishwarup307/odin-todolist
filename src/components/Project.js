@@ -28,9 +28,9 @@ const ProjectList = (function Projects() {
         localStorage.setItem("projects", JSON.stringify(projectList));
     }
 
-    function find(projectName) {
+    function find({ name }) {
         return projectList.find(
-            (project) => project.id === Util.getStrHash(projectName)
+            (project) => project.id === Util.getStrHash(name)
         );
     }
 

@@ -5,6 +5,7 @@ import dayjs from "dayjs";
 import Task, { TaskList } from "./components/Task";
 import Calendar from "./components/Calendar";
 import Landing from "./components/Landing";
+import TaskView from "./components/TaskView";
 
 // const myDiv = document.createElement("div");
 // myDiv.textContent = "Tailwind Starter";
@@ -19,9 +20,14 @@ import Landing from "./components/Landing";
 //     "font-bold",
 // ].forEach((cls) => myDiv.classList.add(cls));
 
-// const root = document.querySelector("#root");
+const root = document.querySelector("#root");
 
-root.appendChild(Landing());
+const landingPage = Landing();
+landingPage.style.display = "none";
+root.appendChild(landingPage);
+
+// console.log(TaskList.get()[0]);
+root.appendChild(TaskView());
 
 // const date = dayjs().format("YYYY-MM-DD");
 // const dateObject = dayjs(date);
