@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { nanoid } from "nanoid";
 import Util from "./Utilities";
 import Project, { ProjectList } from "./Project";
 import fakeTasks from "../data/fakeTasks.json";
@@ -67,6 +68,7 @@ const getColor = (category) => categoryColors[category].color;
 
 export default class Task {
     constructor({
+        id,
         name,
         description,
         endDate,
@@ -77,6 +79,7 @@ export default class Task {
     }) {
         this.name = name;
         this.description = description;
+        this.id = id || nanoid();
 
         this._endDate = null;
         this._category = null;
@@ -109,16 +112,16 @@ export default class Task {
         return obj;
     }
 
-    get id() {
-        return Util.getStrHash(this.name);
-    }
-
     get displayName() {
         return Util.toTitleCase(this.name);
     }
 
     get tags() {
         return this._tagList;
+    }
+
+    removeAllTags() {
+        this._tagList = [];
     }
 
     set tags(tags) {
@@ -176,6 +179,21 @@ export default class Task {
         if (dayjs(endDate).isValid()) {
             this._endDate = dayjs(endDate).format("YYYY-MM-DD");
         }
+    }
+
+    update(newTask) {
+        Calendar.removeEvent(this.endDate, this.id);
+        Object.assign(this, newTask);
+        Calendar.createEvent(this);
+    }
+
+    makeTagDisplay(tag) {
+        const tagDisplay = document.createElement("div");
+        tagDisplay.dataset.tag = tag;
+        tagDisplay.className =
+            "tag rounded-md font-medium text-xs px-2 py-0.5 bg-black text-white lg:text-sm lg:px-2 lg:py-1";
+        tagDisplay.textContent = `#${tag.toLowerCase().replaceAll(" ", "-")}`;
+        return tagDisplay;
     }
 
     displayTask() {
@@ -337,20 +355,54 @@ export default class Task {
         editDescriptionDiv.appendChild(labelEditDescription);
 
         const calendarDiv = document.createElement("div");
-        calendarDiv.className = "flex gap-2";
+        calendarDiv.className = "flex gap-2 flex-wrap";
 
-        const changeCategory = document.createElement("select");
-        changeCategory.className =
-            "rounded-lg border-2 border-black px-2 py-2 flex-1";
+        const editCategoryDiv = document.createElement("div");
+        editCategoryDiv.className = "relative flex-1";
+        const editCategory = document.createElement("select");
+        editCategory.id = "input-edit-category";
+        editCategory.className =
+            "rounded-lg border-2 border-black px-2 py-2 flex";
         VALID_CATEGORIES.forEach((category) => {
             let option = document.createElement("option");
             option.textContent = util.toTitleCase(category);
             option.value = category;
 
             if (category === this.category) option.setAttribute("selected", "");
-            changeCategory.appendChild(option);
+            editCategory.appendChild(option);
         });
-        calendarDiv.appendChild(changeCategory);
+        editCategoryDiv.appendChild(editCategory);
+
+        const labelCategoryChange = document.createElement("label");
+        labelCategoryChange.for = "input-edit-category";
+        labelCategoryChange.textContent = "Category";
+        labelCategoryChange.className =
+            "absolute top-[-25%] start-4 bg-white px-2 font-bold text-slate-500 font-xs";
+        editCategoryDiv.appendChild(labelCategoryChange);
+
+        calendarDiv.appendChild(editCategoryDiv);
+
+        const editPriorityDiv = document.createElement("div");
+        editPriorityDiv.className = "relative flex-1";
+        const editPriority = document.createElement("select");
+        editPriority.className =
+            "rounded-lg border-2 border-black px-2 py-2 w-full flex";
+        VALID_PRIORITIES.forEach((priority) => {
+            let option = document.createElement("option");
+            option.textContent = util.toTitleCase(priority);
+            option.value = priority;
+
+            if (priority === this.priority) option.setAttribute("selected", "");
+            editPriority.appendChild(option);
+        });
+        editPriorityDiv.appendChild(editPriority);
+        const labelEditPriority = document.createElement("label");
+        labelEditPriority.for = "input-edit-category";
+        labelEditPriority.textContent = "Priority";
+        labelEditPriority.className =
+            "absolute top-[-25%] start-4 bg-white px-2 font-bold text-slate-500 font-xs";
+        editPriorityDiv.appendChild(labelEditPriority);
+        calendarDiv.appendChild(editPriorityDiv);
 
         const datePicker = document.createElement("input");
         datePicker.type = "date";
@@ -359,9 +411,96 @@ export default class Task {
             "border-2 border-black rounded-lg px-2 py-2 w-auto";
         calendarDiv.appendChild(datePicker);
 
+        const tagDiv = document.createElement("div");
+        tagDiv.className =
+            "relative flex flex-wrap gap-1 border-2 rounded-md border-black px-1 py-1 pt-4";
+
+        const tagDivLabel = document.createElement("p");
+        tagDivLabel.textContent = "Tags";
+        tagDivLabel.className =
+            "absolute top-[-25%] start-4 bg-white px-2 font-bold text-slate-500 font-xs";
+        tagDiv.appendChild(tagDivLabel);
+
+        this.tags.forEach((tag) => {
+            const tagDisplay = this.makeTagDisplay(tag);
+            tagDiv.appendChild(tagDisplay);
+        });
+
+        const tagInput = document.createElement("input");
+        tagInput.id = "input-edit-tags";
+        tagInput.className = "px-2 w-36 focus:outline-none";
+        tagDiv.appendChild(tagInput);
+
+        tagDiv.addEventListener("click", () => {
+            tagInput.focus();
+        });
+        tagDiv.addEventListener("click", () => {
+            tagInput.focus();
+        });
+
+        tagInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === "Tab") {
+                e.stopPropagation();
+                const tag = this.makeTagDisplay(tagInput.value);
+                tagDiv.insertBefore(tag, tagInput);
+                tagInput.value = "";
+                tagInput.focus();
+            }
+        });
+
+        tagDiv.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" || e.key === "Delete") {
+                if (tagInput.value === "" && tagDiv.children.length > 2) {
+                    tagDiv.removeChild(
+                        tagDiv.children[tagDiv.children.length - 2]
+                    );
+                }
+            }
+        });
+
+        const btnSave = document.createElement("button");
+        btnSave.textContent = "Save";
+        btnSave.className =
+            "rounded-md bg-black text-white font-medium border-2 border-transparent px-6 py-1 self-end transition-all hover:bg-white hover:border-black hover:text-black";
+
+        btnSave.addEventListener("click", () => {
+            // this.name = editTitle.value;
+            // this.description = editDescription.value;
+            // this.endDate = datePicker.value;
+            // this.category = editCategory.value;
+            // this.priority = editPriority.value;
+            const tags = [];
+            [...tagDiv.children].forEach((child) => {
+                if (child.classList.contains("tag"))
+                    tags.push(child.dataset.tag);
+            });
+
+            this.update({
+                name: editTitle.value,
+                description: editDescription.value,
+                endDate: datePicker.value,
+                category: editCategory.value,
+                priority: editPriority.value,
+                tags: tags,
+            });
+            modal.close();
+            TaskList.save(); // Save the edited task
+
+            // This is a pure hack to make the UI update on the fly
+            // while editing tasks. We append this empty div to the task view
+            // container to make use of MutationObserver to handle the UI update
+            // I could NOT find a better way to do this for now.
+            const myHackDiv = document.createElement("div");
+            document
+                .querySelector("#task-view-container")
+                .appendChild(myHackDiv);
+        });
+
         modalContainer.appendChild(editTaskDiv);
         modalContainer.appendChild(editDescriptionDiv);
         modalContainer.appendChild(calendarDiv);
+        modalContainer.appendChild(tagDiv);
+        modalContainer.appendChild(btnSave);
 
         modal.appendChild(modalContainer);
 

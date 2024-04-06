@@ -9,7 +9,6 @@ const Calendar = (function cal() {
     function loadCalendar() {
         return JSON.parse(localStorage.getItem("calendar") || "{}");
     }
-
     function makeNewCalendar() {
         // limiting the calendar to 2024 for simplicity
         for (let i = 1; i <= 12; i++) {
@@ -36,6 +35,14 @@ const Calendar = (function cal() {
         save();
     }
 
+    function removeEvent(date, taskId) {
+        const month = dayjs(date).month() + 1;
+        const dt = dayjs(date).date();
+        calendar[month][dt] = calendar[month][dt].filter(
+            (task) => task.id !== taskId
+        );
+    }
+
     function getMonth(monthIndex) {
         const month = [];
         for (let dt in calendar[`${monthIndex}`]) {
@@ -48,6 +55,12 @@ const Calendar = (function cal() {
         }
 
         return month;
+    }
+
+    function getDate(date) {
+        const month = dayjs(date).month() + 1;
+        const dt = dayjs(date).date();
+        return calendar[month][dt];
     }
 
     function getMonthDisplay(monthIndex) {
@@ -103,7 +116,15 @@ const Calendar = (function cal() {
         return weeklyTasks;
     }
 
-    return { save, createEvent, getMonth, getMonthDisplay, getWeekDisplay };
+    return {
+        save,
+        createEvent,
+        removeEvent,
+        getDate,
+        getMonth,
+        getMonthDisplay,
+        getWeekDisplay,
+    };
 })();
 
 export default Calendar;

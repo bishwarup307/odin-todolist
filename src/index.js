@@ -7,27 +7,33 @@ import Calendar from "./components/Calendar";
 import Landing from "./components/Landing";
 import TaskView from "./components/TaskView";
 
-// const myDiv = document.createElement("div");
-// myDiv.textContent = "Tailwind Starter";
+function updateUICallback() {
+    observer.disconnect();
+    console.log("callback triggered!");
+    while (root.firstChild) root.removeChild(root.firstChild);
+    const taskDisplay = TaskView();
+    root.appendChild(taskDisplay);
+    observer.observe(taskDisplay, config);
+}
 
-// [
-//     "text-6xl",
-//     "text-textPrimary",
-//     "flex",
-//     "justify-center",
-//     "mt-8",
-//     "font-albert",
-//     "font-bold",
-// ].forEach((cls) => myDiv.classList.add(cls));
+let observer = new MutationObserver(updateUICallback);
 
 const root = document.querySelector("#root");
 
 const landingPage = Landing();
-landingPage.style.display = "none";
+const taskDisplay = TaskView();
 root.appendChild(landingPage);
-root.appendChild(TaskView());
+root.appendChild(taskDisplay);
 
-console.log(TaskList.get());
+if (TaskList.get().length === 0) taskDisplay.style.display = "none";
+else landingPage.style.display = "none";
+
+const config = { childList: true };
+observer.observe(taskDisplay, config);
+
+// console.log(Calendar.getDate("2024-04-19"));
+
+// console.log(TaskList.get());
 
 // const date = dayjs().format("YYYY-MM-DD");
 // const dateObject = dayjs(date);

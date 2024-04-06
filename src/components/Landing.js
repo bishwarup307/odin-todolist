@@ -61,7 +61,13 @@ export default function Landing() {
         "underline cursor-pointer px-2 py-1 rounded-xl font-bold bg-orange-500 text-white import-task";
     spanElement.textContent = "Import model tasks";
 
-    spanElement.addEventListener("click", TaskList.importFakeTasks);
+    spanElement.addEventListener("click", () => {
+        TaskList.importFakeTasks();
+
+        // Hack to switch view to TaskView once the tasks have been imported
+        const hackDiv = document.createElement("div");
+        document.querySelector("#task-view-container").appendChild(hackDiv);
+    });
 
     // Append the span to the paragraph
     importTask.appendChild(spanElement);
