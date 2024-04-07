@@ -225,12 +225,31 @@ export default class Task {
         const leftDiv = document.createElement("div");
         leftDiv.className = "flex flex-col min-w-0 gap-1";
 
+        const categoryDiv = document.createElement("div");
+        categoryDiv.className = "flex gap-2 items-center";
         const category = document.createElement("div");
         const bgColor = getColor(this.category);
         category.textContent = util.toTitleCase(this.category);
         category.className = `flex self-start justify-start items-center rounded-full px-2 text-white font-medium text-sm`;
         category.style.backgroundColor = bgColor;
-        leftDiv.appendChild(category);
+        categoryDiv.appendChild(category);
+        const expiredDiv = document.createElement("div");
+        expiredDiv.className = "flex gap-1";
+        const expiredIcon = document.createElement("div");
+        expiredIcon.innerHTML = `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M520.741 163.801a10.234 10.234 0 00-3.406-3.406c-4.827-2.946-11.129-1.421-14.075 3.406L80.258 856.874a10.236 10.236 0 00-1.499 5.335c0 5.655 4.585 10.24 10.24 10.24h846.004c1.882 0 3.728-.519 5.335-1.499 4.827-2.946 6.352-9.248 3.406-14.075L520.742 163.802zm43.703-26.674L987.446 830.2c17.678 28.964 8.528 66.774-20.436 84.452a61.445 61.445 0 01-32.008 8.996H88.998c-33.932 0-61.44-27.508-61.44-61.44a61.445 61.445 0 018.996-32.008l423.002-693.073c17.678-28.964 55.488-38.113 84.452-20.436a61.438 61.438 0 0120.436 20.436zM512 778.24c22.622 0 40.96-18.338 40.96-40.96s-18.338-40.96-40.96-40.96-40.96 18.338-40.96 40.96 18.338 40.96 40.96 40.96zm0-440.32c-22.622 0-40.96 18.338-40.96 40.96v225.28c0 22.622 18.338 40.96 40.96 40.96s40.96-18.338 40.96-40.96V378.88c0-22.622-18.338-40.96-40.96-40.96z"></path></g></svg>`;
+        expiredIcon.className = "w-4 fill-red-700";
+        expiredDiv.appendChild(expiredIcon);
+        const expiredText = document.createElement("p");
+        expiredText.textContent = "Expired";
+        expiredText.className = "text-sm text-red-700 font-semibold";
+        expiredDiv.appendChild(expiredText);
+
+        if (dayjs().isBefore(this.endDate)) {
+            expiredDiv.style.display = "none";
+        }
+
+        categoryDiv.appendChild(expiredDiv);
+        leftDiv.appendChild(categoryDiv);
 
         const title = document.createElement("p");
         title.textContent = util.capitalize(this.name);
@@ -245,8 +264,8 @@ export default class Task {
         const projectDiv = document.createElement("div");
         projectDiv.className = "flex gap-2 items-center";
         const projectIcon = document.createElement("div");
-        projectIcon.innerHTML = `<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="folder-alt" class="icon glyph"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M19,8H7A3,3,0,0,0,4.26,9.78L2,14.87V5A2,2,0,0,1,4,3H8a2.05,2.05,0,0,1,1.4.56L11.83,6H17A2,2,0,0,1,19,8Zm2.81,2.42A1,1,0,0,0,21,10H7a1,1,0,0,0-.91.59l-4,9A1,1,0,0,0,3,21H18a1,1,0,0,0,.95-.68l3-9A1,1,0,0,0,21.81,10.42Z"></path></g></svg>`;
-        projectIcon.className = "w-6";
+        projectIcon.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="folder-alt" class="icon glyph"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M19,8H7A3,3,0,0,0,4.26,9.78L2,14.87V5A2,2,0,0,1,4,3H8a2.05,2.05,0,0,1,1.4.56L11.83,6H17A2,2,0,0,1,19,8Zm2.81,2.42A1,1,0,0,0,21,10H7a1,1,0,0,0-.91.59l-4,9A1,1,0,0,0,3,21H18a1,1,0,0,0,.95-.68l3-9A1,1,0,0,0,21.81,10.42Z"></path></g></svg>`;
+        projectIcon.className = "w-6 fill-slate-700";
         projectDiv.appendChild(projectIcon);
         const projectName = document.createElement("p");
         projectName.textContent = Util.toTitleCase(this.project.name);
