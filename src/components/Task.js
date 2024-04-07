@@ -19,6 +19,7 @@ const VALID_CATEGORIES = [
     "learning",
     "personal",
     "professional",
+    "other",
 ];
 
 const categoryColors = {
@@ -58,9 +59,9 @@ const categoryColors = {
         color: "#1f69e0",
         icon: `<svg viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#1f69e0"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>work-case-filled</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="work-case" fill="#1f69e0" transform="translate(42.666667, 64.000000)"> <path d="M1.20792265e-13,197.76 C54.5835501,218.995667 112.186031,231.452204 170.666667,234.666667 L170.666667,277.333333 L256,277.333333 L256,234.666667 C314.339546,231.013 371.833936,218.86731 426.666667,198.613333 L426.666667,362.666667 L1.20792265e-13,362.666667 L1.20792265e-13,197.76 Z M277.333333,-1.42108547e-14 L298.666667,21.3333333 L298.666667,64 L426.666667,64 L426.666667,175.146667 C361.254942,199.569074 292.110481,212.488551 222.293333,213.333333 L222.293333,213.333333 L206.933333,213.333333 C136.179047,212.568604 66.119345,199.278929 7.10542736e-15,174.08 L7.10542736e-15,174.08 L7.10542736e-15,64 L128,64 L128,21.3333333 L149.333333,-1.42108547e-14 L277.333333,-1.42108547e-14 Z M256,42.6666667 L170.666667,42.6666667 L170.666667,64 L256,64 L256,42.6666667 Z" id="Combined-Shape-Copy"> </path> </g> </g> </g></svg>`,
     },
-    default: {
-        color: "#c6c6c6",
-        icon: `<svg fill="#c6c6c6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z"></path></g></svg>`,
+    other: {
+        color: "#878787",
+        icon: `<svg fill="#878787" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M4 11h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm10 0h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zM4 21h6a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1zm13 0c2.206 0 4-1.794 4-4s-1.794-4-4-4-4 1.794-4 4 1.794 4 4 4z"></path></g></svg>`,
     },
 };
 
@@ -75,10 +76,10 @@ export default class Task {
         category,
         tags = [],
         priority,
-        project,
+        project = "default",
     }) {
         this.name = name;
-        this.description = description;
+        this.description = description || "No description provided";
         this.id = id || nanoid();
 
         this._endDate = null;
@@ -89,10 +90,10 @@ export default class Task {
         this._recurring = null;
 
         this.endDate = endDate;
-        this.category = category;
+        this.category = category || "other";
         this.tags = tags;
         this.status = "to-do";
-        this.priority = priority;
+        this.priority = priority || "medium";
 
         if (typeof project === "string") project = { name: project };
         const projectObject = ProjectList.find(project);
@@ -185,6 +186,7 @@ export default class Task {
         Calendar.removeEvent(this.endDate, this.id);
         Object.assign(this, newTask);
         Calendar.createEvent(this);
+        util.updateUIHack();
     }
 
     makeTagDisplay(tag) {
@@ -485,15 +487,6 @@ export default class Task {
             });
             modal.close();
             TaskList.save(); // Save the edited task
-
-            // This is a pure hack to make the UI update on the fly
-            // while editing tasks. We append this empty div to the task view
-            // container to make use of MutationObserver to handle the UI update
-            // I could NOT find a better way to do this for now.
-            const myHackDiv = document.createElement("div");
-            document
-                .querySelector("#task-view-container")
-                .appendChild(myHackDiv);
         });
 
         modalContainer.appendChild(editTaskDiv);
@@ -525,6 +518,8 @@ const TaskList = (function Tasks() {
         if (task instanceof Task) {
             taskList.push(task);
             Calendar.createEvent(task);
+            save();
+            util.updateUIHack();
         } else throw new Error("Not a valid task object");
     }
 

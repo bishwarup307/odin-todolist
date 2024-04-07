@@ -1,11 +1,12 @@
+import { nanoid } from "nanoid";
 import fakeProjects from "../data/fakeProjects.json";
 import Util from "./Utilities";
 
 export default class Project {
-    constructor(name, description) {
+    constructor(name, description, id) {
         this.name = name;
-        this.id = Util.getStrHash(name);
         this.description = description;
+        this.id = id || nanoid();
     }
 
     get displayName() {
@@ -17,7 +18,10 @@ const ProjectList = (function Projects() {
     let projectList = JSON.parse(localStorage.getItem("projects") || "[]");
 
     function add(project) {
-        projectList.push(project);
+        if (!find(project)) {
+            projectList.push(project);
+            save();
+        }
     }
 
     function getAllProjects() {
@@ -29,13 +33,11 @@ const ProjectList = (function Projects() {
     }
 
     function find({ name }) {
-        return projectList.find(
-            (project) => project.id === Util.getStrHash(name)
-        );
+        return projectList.find((project) => project.name === name);
     }
 
     function importFakeProjects() {
-        if (projectList.length > 0) return;
+        // if (projectList.length > 0) return;
 
         fakeProjects.forEach((fakeProject) => {
             projectList.push(
@@ -44,6 +46,13 @@ const ProjectList = (function Projects() {
         });
         save();
     }
+
+    add(
+        new Project(
+            "default",
+            "this is the default project to hold arbitrary tasks"
+        )
+    );
 
     return { add, find, save, getAllProjects, importFakeProjects };
 })();

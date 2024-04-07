@@ -26,6 +26,22 @@ const util = (function utility() {
         );
     }
 
-    return { processString, capitalize, toTitleCase, getStrHash, adjustColor };
+    // This is a pure hack to make the UI update on the fly
+    // while editing tasks. We append this empty div to the task view
+    // container to make use of MutationObserver to handle the UI update
+    // I could NOT find a better way to do this for now.
+    function updateUIHack() {
+        const myHackDiv = document.createElement("div");
+        document.querySelector("#task-view-container").appendChild(myHackDiv);
+    }
+
+    return {
+        processString,
+        capitalize,
+        toTitleCase,
+        getStrHash,
+        adjustColor,
+        updateUIHack,
+    };
 })();
 export default util;
