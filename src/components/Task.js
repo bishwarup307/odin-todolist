@@ -88,16 +88,14 @@ export default class Task {
         this._priority = null;
         this._status = null;
         this._recurring = null;
+        this._project = null;
 
         this.endDate = endDate;
         this.category = category || "other";
         this.tags = tags;
         this.status = "to-do";
         this.priority = priority || "medium";
-
-        if (typeof project === "string") project = { name: project };
-        const projectObject = ProjectList.find(project);
-        if (projectObject) this._project = projectObject;
+        this.project = project;
     }
 
     // To ensure the serialized object can be loaded into the class
@@ -115,6 +113,16 @@ export default class Task {
 
     get displayName() {
         return Util.toTitleCase(this.name);
+    }
+
+    get project() {
+        return this._project;
+    }
+
+    set project(project) {
+        if (typeof project === "string") project = { name: project };
+        const projectObject = ProjectList.find(project);
+        if (projectObject) this._project = projectObject;
     }
 
     get tags() {
@@ -233,6 +241,18 @@ export default class Task {
         description.textContent = util.capitalize(this.description);
         description.className = "text-sm text-slate-600 truncate";
         leftDiv.appendChild(description);
+
+        const projectDiv = document.createElement("div");
+        projectDiv.className = "flex gap-2 items-center";
+        const projectIcon = document.createElement("div");
+        projectIcon.innerHTML = `<svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="folder-alt" class="icon glyph"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M19,8H7A3,3,0,0,0,4.26,9.78L2,14.87V5A2,2,0,0,1,4,3H8a2.05,2.05,0,0,1,1.4.56L11.83,6H17A2,2,0,0,1,19,8Zm2.81,2.42A1,1,0,0,0,21,10H7a1,1,0,0,0-.91.59l-4,9A1,1,0,0,0,3,21H18a1,1,0,0,0,.95-.68l3-9A1,1,0,0,0,21.81,10.42Z"></path></g></svg>`;
+        projectIcon.className = "w-6";
+        projectDiv.appendChild(projectIcon);
+        const projectName = document.createElement("p");
+        projectName.textContent = Util.toTitleCase(this.project.name);
+        projectName.className = "text-sm font-medium text-slate-700";
+        projectDiv.appendChild(projectName);
+        leftDiv.appendChild(projectDiv);
 
         const dateDiv = document.createElement("div");
         dateDiv.className = "flex gap-1 items-center mt-6 mb-1";
