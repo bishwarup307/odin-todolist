@@ -6,12 +6,20 @@ import Task, { TaskList } from "./components/Task";
 import Calendar from "./components/Calendar";
 import Landing from "./components/Landing";
 import TaskView from "./components/TaskView";
+import View from "./components/View";
 
 function updateUICallback() {
     observer.disconnect();
     console.log("callback triggered!");
     while (root.firstChild) root.removeChild(root.firstChild);
-    const taskDisplay = TaskView();
+
+    // remove datepicker divs floating around in the DOM
+    const datepickers = document.querySelectorAll(".datepicker");
+    datepickers.forEach((dp) => {
+        document.body.removeChild(dp);
+    });
+
+    const taskDisplay = View();
     root.appendChild(taskDisplay);
     observer.observe(taskDisplay, config);
 }
@@ -21,14 +29,14 @@ let observer = new MutationObserver(updateUICallback);
 const root = document.querySelector("#root");
 
 const landingPage = Landing();
-const taskDisplay = TaskView();
+const taskDisplay = View();
 root.appendChild(landingPage);
 root.appendChild(taskDisplay);
 
 if (TaskList.get().length === 0) taskDisplay.style.display = "none";
 else landingPage.style.display = "none";
 
-const config = { childList: true };
+const config = { childList: true, subtree: true };
 observer.observe(taskDisplay, config);
 
 // console.log(Calendar.getDate("2024-04-19"));

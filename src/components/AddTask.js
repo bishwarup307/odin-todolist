@@ -5,10 +5,9 @@ import Task, { TaskList, VALID_CATEGORIES, VALID_PRIORITIES } from "./Task";
 import util from "./Utilities";
 
 export default function AddTask() {
-    let classNames;
     const container = document.createElement("div");
     container.className =
-        "flex flex-col gap-2 w-full rounded-2xl border-gray-400 px-4 py-4 shadow-lg bg-white bg-opacity-90 xl:px-8 xl:py-8";
+        "flex flex-col gap-2 w-full rounded-2xl border-gray-400 px-4 py-4 shadow-lg bg-white bg-opacity-90";
 
     // input field for task
     const taskInput = document.createElement("textarea");

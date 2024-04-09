@@ -5,7 +5,7 @@ export default function StateSwitch(task) {
     switchContainer.className = "relative flex items-center gap-3 mt-3";
 
     const todo = document.createElement("button");
-    todo.id = "todo";
+    todo.id = "to-do";
     todo.className =
         "state-icon relative w-6 h-6 fill-gray-400 stroke-gray-400 rounded-full border-2 border-gray-200 bg-gray-200 px-1 py-1";
     todo.dataset.tooltip = "To-do";
