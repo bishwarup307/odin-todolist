@@ -4,15 +4,17 @@ import util from "./Utilities";
 export default function TaskView() {
     const container = document.createElement("div");
     container.id = "task-view-container";
-    container.className = "max-w-sm mx-auto md:max-w-md lg:max-w-xl";
+    container.className =
+        "max-w-sm mx-auto lg:max-w-2xl xl:max-w-7xl dxl:max-w-[1536px]";
 
     const taskDisplay = document.createElement("section");
-    taskDisplay.className = "flex flex-col";
+    taskDisplay.className =
+        "grid grid-cols-1 xl:grid-cols-3 xl:gap-x-8 dxl:gap-x-24";
 
     ["to-do", "doing", "done"].forEach((state) => {
         const tasks = TaskList.getByStatus(state);
         const taskContainer = document.createElement("div");
-        taskContainer.className = "flex flex-col gap-8";
+        taskContainer.className = "flex flex-col gap-8 mt-16";
         const heading = document.createElement("h2");
         heading.textContent = util.toTitleCase(state);
         heading.className =
@@ -26,7 +28,6 @@ export default function TaskView() {
         taskDisplay.appendChild(taskContainer);
     });
 
-    // for (let task of TaskList.get()) container.appendChild(task.displayTask());
     container.appendChild(taskDisplay);
     return container;
 }

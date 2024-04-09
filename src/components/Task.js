@@ -195,6 +195,7 @@ export default class Task {
         Calendar.removeEvent(this.endDate, this.id);
         Object.assign(this, newTask);
         Calendar.createEvent(this);
+        TaskList.save();
         util.updateUIHack();
     }
 
@@ -221,7 +222,6 @@ export default class Task {
         );
 
         taskContainer.className = "flex gap-3 rounded-lg px-6 py-4 shadow-task";
-        // taskContainer.classList.add(borderColor);
 
         const leftDiv = document.createElement("div");
         leftDiv.className = "flex flex-col min-w-0 gap-1";
@@ -338,7 +338,7 @@ export default class Task {
             leftDiv.appendChild(tagDiv);
         }
 
-        const stateSwitch = StateSwitch();
+        const stateSwitch = StateSwitch(this);
         leftDiv.appendChild(stateSwitch);
 
         taskContainer.appendChild(leftDiv);
