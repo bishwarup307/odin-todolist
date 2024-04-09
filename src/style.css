@@ -33,3 +33,22 @@ button {
     display: inline-block;
     transform: rotate(45deg);
 }
+
+[data-tooltip]::before {
+    position: absolute;
+    content: attr(data-tooltip);
+    opacity: 0;
+    left: -20%;
+    top: -100%;
+    background: rgb(0 0 0/ 70%);
+    border-radius: 4px;
+    color: white;
+    font-size: 0.6rem;
+    padding-block: 0.25rem;
+    padding-inline: 0.5rem;
+    white-space: nowrap;
+}
+
+[data-tooltip]:hover::before {
+    opacity: 1;
+}
