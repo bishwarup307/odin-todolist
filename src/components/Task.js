@@ -505,17 +505,33 @@ export default class Task {
             }
         });
 
+        const editProjectDiv = document.createElement("div");
+        editProjectDiv.className = "relative flex-1";
+        const editProject = document.createElement("select");
+        editProject.className =
+            "rounded-lg border-2 border-black px-2 py-2 flex";
+        ProjectList.getAllProjects().forEach((project) => {
+            let option = document.createElement("option");
+            option.textContent = util.toTitleCase(project.name);
+            option.value = project.name;
+
+            if (project.name === this.project.name)
+                option.setAttribute("selected", "");
+            editProject.appendChild(option);
+        });
+        editProjectDiv.appendChild(editProject);
+        const labelEditProject = document.createElement("label");
+        labelEditProject.textContent = "Project";
+        labelEditProject.className =
+            "absolute top-[-25%] start-4 bg-white px-2 font-bold text-slate-500 font-xs";
+        editProjectDiv.appendChild(labelEditProject);
+
         const btnSave = document.createElement("button");
         btnSave.textContent = "Save";
         btnSave.className =
             "rounded-md bg-black text-white font-medium border-2 border-transparent px-6 py-1 self-end transition-all hover:bg-white hover:border-black hover:text-black";
 
         btnSave.addEventListener("click", () => {
-            // this.name = editTitle.value;
-            // this.description = editDescription.value;
-            // this.endDate = datePicker.value;
-            // this.category = editCategory.value;
-            // this.priority = editPriority.value;
             const tags = [];
             [...tagDiv.children].forEach((child) => {
                 if (child.classList.contains("tag"))
@@ -528,6 +544,7 @@ export default class Task {
                 endDate: datePicker.value,
                 category: editCategory.value,
                 priority: editPriority.value,
+                project: editProject.value,
                 tags: tags,
             });
             modal.close();
@@ -538,6 +555,7 @@ export default class Task {
         modalContainer.appendChild(editDescriptionDiv);
         modalContainer.appendChild(calendarDiv);
         modalContainer.appendChild(tagDiv);
+        modalContainer.appendChild(editProjectDiv);
         modalContainer.appendChild(btnSave);
 
         modal.appendChild(modalContainer);
