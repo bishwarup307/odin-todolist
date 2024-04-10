@@ -35,12 +35,14 @@ const Calendar = (function cal() {
         save();
     }
 
-    function removeEvent(date, taskId) {
+    function removeEvent(task) {
+        const date = task.endDate;
         const month = dayjs(date).month() + 1;
         const dt = dayjs(date).date();
         calendar[month][dt] = calendar[month][dt].filter(
-            (task) => task.id !== taskId
+            (tsk) => tsk.id !== task.id
         );
+        save();
     }
 
     function getMonth(monthIndex) {

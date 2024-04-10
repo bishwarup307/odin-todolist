@@ -193,7 +193,7 @@ export default class Task {
     }
 
     update(newTask) {
-        Calendar.removeEvent(this.endDate, this.id);
+        Calendar.removeEvent(this);
         Object.assign(this, newTask);
         Calendar.createEvent(this);
         TaskList.save();
@@ -235,6 +235,18 @@ export default class Task {
         category.className = `flex self-start justify-start items-center rounded-full px-2 text-white font-medium text-sm`;
         category.style.backgroundColor = bgColor;
         categoryDiv.appendChild(category);
+        // const deleteTask = document.createElement("button");
+        // deleteTask.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></g></svg>`;
+        // deleteTask.className =
+        //     "relative mr-3 fill-slate-700 w-5 h-5 opacity-35 transition-opacity hover:opacity-100";
+        // deleteTask.dataset.tooltip = "Delete task";
+
+        // categoryDiv.appendChild(deleteTask);
+
+        // deleteTask.addEventListener("click", () => {
+        //     TaskList.remove(this.id);
+        // });
+
         const expiredDiv = document.createElement("div");
         expiredDiv.className = "flex gap-1";
         const expiredIcon = document.createElement("div");
@@ -249,8 +261,8 @@ export default class Task {
         if (dayjs().isBefore(this.endDate)) {
             expiredDiv.style.display = "none";
         }
-
         categoryDiv.appendChild(expiredDiv);
+
         leftDiv.appendChild(categoryDiv);
 
         const title = document.createElement("p");
@@ -352,17 +364,68 @@ export default class Task {
         categoryIconDiv.innerHTML = categoryColors[this.category].icon;
         rightDiv.appendChild(categoryIconDiv);
 
+        const actionButtonDiv = document.createElement("div");
+        actionButtonDiv.className = "mt-auto mb-10 flex gap-2 items-center";
+
         const btnEditTask = document.createElement("button");
         btnEditTask.className =
-            "relative mt-auto mb-8 w-8 px-1 py-1 rounded-full border-2 border-slate-300 fill-slate-300 hover:border-slate-500 hover:fill-slate-500";
+            "relative mt-auto w-8 px-1 py-1 rounded-full border-2 border-slate-300 fill-slate-300 hover:border-slate-500 hover:fill-slate-500";
         btnEditTask.innerHTML = `<svg viewBox="-5 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>pencil</title> <path d="M18.344 4.781l-3.406 3.063s1.125 0.688 2.156 1.656c1 0.969 1.719 2.063 1.719 2.063l2.906-3.469s-0.031-0.625-1.406-1.969c-1.406-1.344-1.969-1.344-1.969-1.344zM7.25 21.938l-0.156 1.5 10.813-11.25s-0.719-1-1.594-1.844c-0.906-0.875-1.938-1.563-1.938-1.563l-10.813 11.25 1.688-0.094 0.188 1.813zM0 26.719l2.688-5.5 1.5-0.125 0.125 1.719 1.813 0.25-0.188 1.375-5.438 2.75z"></path> </g></svg>`;
         btnEditTask.dataset.tooltip = "Edit the task";
-        rightDiv.appendChild(btnEditTask);
+        actionButtonDiv.appendChild(btnEditTask);
 
+        const deleteTask = document.createElement("button");
+        deleteTask.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></g></svg>`;
+        deleteTask.className =
+            "relative w-8 px-1 py-1 rounded-full border-2 border-slate-300 fill-slate-300 hover:border-slate-500 hover:fill-slate-500";
+        deleteTask.dataset.tooltip = "Delete task";
+
+        const confirmDeleteModal = document.createElement("dialog");
+        confirmDeleteModal.className =
+            "rounded-lg shadow-sm shadow-white backdrop:bg-black/50 max-w-sm lg:max-w-md";
+        const confirmContainer = document.createElement("div");
+        confirmContainer.className = "flex px-4 py-4 flex-col gap-6";
+        const confirmMsg = document.createElement("p");
+        confirmMsg.innerHTML = `Do you want to delete the task <span class="font-bold">${this.name}</span>? This action cannot be undone.`;
+        confirmContainer.appendChild(confirmMsg);
+        const deleteActionsContainer = document.createElement("div");
+        deleteActionsContainer.className =
+            "flex justify-end items-center gap-4";
+        const btnDeleteConfirm = document.createElement("button");
+        btnDeleteConfirm.textContent = "Delete";
+        btnDeleteConfirm.className =
+            "rounded-md bg-red-700 text-white px-3 py-1";
+        deleteActionsContainer.appendChild(btnDeleteConfirm);
+        const btnCancelDelete = document.createElement("button");
+        btnCancelDelete.textContent = "Cancel";
+        btnCancelDelete.className =
+            "rounded-md px-3 py-1 bg-slate-600 text-white";
+        deleteActionsContainer.appendChild(btnCancelDelete);
+        confirmContainer.appendChild(deleteActionsContainer);
+        confirmDeleteModal.appendChild(confirmContainer);
+        actionButtonDiv.appendChild(confirmDeleteModal);
+
+        actionButtonDiv.appendChild(deleteTask);
+
+        deleteTask.addEventListener("click", () => {
+            confirmDeleteModal.showModal();
+            // TaskList.remove(this.id);
+        });
+
+        btnCancelDelete.addEventListener("click", () => {
+            confirmDeleteModal.close();
+        });
+
+        btnDeleteConfirm.addEventListener("click", () => {
+            TaskList.remove(this.id);
+        });
+
+        rightDiv.appendChild(actionButtonDiv);
         taskContainer.appendChild(rightDiv);
 
         const modal = document.createElement("dialog");
-        modal.className = "w-3/4 lg:w-1/2 max-w-[600px] rounded-lg";
+        modal.className =
+            "w-3/4 max-w-[600px] rounded-lg backdrop:bg-black/50 shadow-sm shadow-white lg:w-1/2";
 
         const modalContainer = document.createElement("div");
         modalContainer.className = "flex flex-col px-8 py-8 gap-4";
@@ -586,6 +649,15 @@ const TaskList = (function Tasks() {
         } else throw new Error("Not a valid task object");
     }
 
+    function remove(taskId) {
+        const task = findTask(taskId);
+        if (!task) return;
+        taskList = taskList.filter((task) => task.id !== taskId);
+        Calendar.removeEvent(task);
+        save();
+        util.updateUIHack();
+    }
+
     function findTask(taskId) {
         return taskList.find((task) => task.id === taskId);
     }
@@ -657,6 +729,7 @@ const TaskList = (function Tasks() {
 
     return {
         add,
+        remove,
         get,
         getByStatus,
         getByPriority,
