@@ -28,8 +28,53 @@ export default function View() {
     addTaskContainer.appendChild(AddTask());
     container.appendChild(addTaskContainer);
 
+    container.appendChild(SwitchViewTab());
+
     const taskView = TaskView();
     container.appendChild(taskView);
 
     return { container, taskView };
+}
+
+function SwitchViewTab() {
+    const container = document.createElement("div");
+    container.className =
+        "relative w-full max-w-sm mt-16 flex gap-2 px-4 pt-2 border-b-2 bg-textPrimaryLightest border-textPrimary lg:max-w-2xl xl:max-w-7xl dxl:max-w-[1536px]";
+
+    const taskView = document.createElement("button");
+    // taskView.id = "task-view"
+    taskView.className =
+        "view-tab rounded-t-2xl py-2 px-4 flex justify-center items-center bg-textPrimary text-white";
+    taskView.textContent = "Task view";
+    container.appendChild(taskView);
+
+    const calendarView = document.createElement("button");
+    // calendarView.id = "calendar-view"
+    calendarView.className =
+        "view-tab rounded-t-2xl py-2 px-4 flex justify-center items-center bg-textPrimary text-white";
+    calendarView.textContent = "Calendar View";
+    container.appendChild(calendarView);
+
+    const projectView = document.createElement("button");
+    // projectView.id = "project-view"
+    projectView.className =
+        "view-tab rounded-t-2xl py-2 px-4 flex justify-center items-center bg-textPrimary text-white";
+    projectView.textContent = "Project View";
+    container.appendChild(projectView);
+
+    let active = taskView;
+    active.classList.add("active");
+
+    container.addEventListener("click", (e) => {
+        const target = e.target.closest("button");
+
+        if (!target) return;
+        if (target === active) return;
+
+        active.classList.remove("active");
+        active = target;
+        active.classList.add("active");
+    });
+
+    return container;
 }

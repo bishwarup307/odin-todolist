@@ -67,3 +67,14 @@ button {
 .tag-container::-webkit-scrollbar {
     display: none !important; /* Safari and Chrome */
 }
+
+.view-tab.active {
+    /* position: absolute; */
+    background-color: white;
+    color: hsl(197, 94%, 10%);
+    font-weight: 600;
+    border-bottom: 2px solid white;
+    border-inline: 2px solid hsl(197, 94%, 10%);
+    border-top: 2px solid hsl(197, 94%, 10%);
+    margin-bottom: -2px;
+}
