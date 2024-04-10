@@ -78,6 +78,7 @@ export default class Task {
         tags = [],
         priority,
         project = "default",
+        status,
     }) {
         this.name = name;
         this.description = description || "No description provided";
@@ -94,7 +95,7 @@ export default class Task {
         this.endDate = endDate;
         this.category = category || "other";
         this.tags = tags;
-        this.status = "to-do";
+        this.status = status || "to-do";
         this.priority = priority || "medium";
         this.project = project;
     }
@@ -314,13 +315,13 @@ export default class Task {
 
         if (this.tags.length > 0) {
             const tagDiv = document.createElement("div");
-            tagDiv.className = "flex gap-2 flex-wrap";
+            tagDiv.className = "flex gap-2 overflow-scroll";
 
             this.tags.forEach((tag) => {
                 const tagDisplay = document.createElement("div");
 
                 tagDisplay.className =
-                    "rounded-md font-medium text-xs px-2 py-0.5 lg:text-sm lg:px-2 lg:py-1";
+                    "whitespace-nowrap rounded-md font-medium text-xs px-2 py-0.5 lg:text-sm lg:px-2 lg:py-1";
 
                 tagDisplay.style.backgroundColor =
                     getColor(this.category) + "20";

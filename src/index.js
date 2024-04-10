@@ -10,7 +10,7 @@ import View from "./components/View";
 
 function updateUICallback() {
     observer.disconnect();
-    console.log("callback triggered!");
+    console.log("callback to update UI triggered!");
     while (root.firstChild) root.removeChild(root.firstChild);
 
     // remove datepicker divs floating around in the DOM
@@ -20,8 +20,8 @@ function updateUICallback() {
     });
 
     const taskDisplay = View();
-    root.appendChild(taskDisplay);
-    observer.observe(taskDisplay, config);
+    root.appendChild(taskDisplay.container);
+    observer.observe(taskDisplay.taskView, config);
 }
 
 let observer = new MutationObserver(updateUICallback);
@@ -31,13 +31,13 @@ const root = document.querySelector("#root");
 const landingPage = Landing();
 const taskDisplay = View();
 root.appendChild(landingPage);
-root.appendChild(taskDisplay);
+root.appendChild(taskDisplay.container);
 
-if (TaskList.get().length === 0) taskDisplay.style.display = "none";
+if (TaskList.get().length === 0) taskDisplay.container.style.display = "none";
 else landingPage.style.display = "none";
 
 const config = { childList: true, subtree: true };
-observer.observe(taskDisplay, config);
+observer.observe(taskDisplay.taskView, config);
 
 // console.log(Calendar.getDate("2024-04-19"));
 

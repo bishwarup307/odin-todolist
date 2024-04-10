@@ -7,7 +7,8 @@ export default function View() {
     container.className = "grid place-items-center";
 
     const navbarContainer = document.createElement("div");
-    navbarContainer.className = "w-full bg-black py-6 mb-16";
+    navbarContainer.className =
+        "w-full bg-grad py-6 mb-16 bg-gradient-to-r from-textPrimary to-textPrimaryLight";
 
     const logoContainer = document.createElement("div");
     logoContainer.className =
@@ -24,12 +25,11 @@ export default function View() {
     addTaskContainer.className =
         "w-full max-w-sm lg:max-w-xl xl:max-w-3xl dxl:max-w-4xl";
 
-    const addTask = AddTask();
-    addTaskContainer.appendChild(addTask);
+    addTaskContainer.appendChild(AddTask());
     container.appendChild(addTaskContainer);
 
     const taskView = TaskView();
     container.appendChild(taskView);
 
-    return container;
+    return { container, taskView };
 }
