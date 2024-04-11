@@ -1,5 +1,7 @@
 import AddTask from "./AddTask";
 import TaskView from "./TaskView";
+import CalendarView from "./CalendarView";
+import ProjectView from "./ProjectView";
 import logoPng from "../assets/logo-white.png";
 
 export default function View() {
@@ -28,15 +30,22 @@ export default function View() {
     addTaskContainer.appendChild(AddTask());
     container.appendChild(addTaskContainer);
 
-    container.appendChild(SwitchViewTab());
+    const displayContainer = document.createElement("div");
 
     const taskView = TaskView();
-    container.appendChild(taskView);
+    const calendarView = CalendarView();
+    const projectView = ProjectView();
+
+    container.appendChild(
+        SwitchViewTab(displayContainer, taskView, calendarView, projectView)
+    );
+    displayContainer.appendChild(taskView);
+    container.appendChild(displayContainer);
 
     return { container, taskView };
 }
 
-function SwitchViewTab() {
+function SwitchViewTab(viewEl, taskViewEl, calendarViewEl, projectViewEl) {
     const container = document.createElement("div");
     container.className =
         "relative w-full max-w-sm mt-16 flex gap-2 px-4 pt-2 border-b-2 bg-textPrimaryLightest border-textPrimary lg:max-w-2xl xl:max-w-7xl dxl:max-w-[1536px]";
@@ -74,6 +83,10 @@ function SwitchViewTab() {
         active.classList.remove("active");
         active = target;
         active.classList.add("active");
+        while (viewEl.firstChild) viewEl.removeChild(viewEl.firstChild);
+        if (active === taskView) viewEl.appendChild(taskViewEl);
+        else if (active === calendarView) viewEl.appendChild(calendarViewEl);
+        else if (active === projectView) viewEl.appendChild(projectViewEl);
     });
 
     return container;
