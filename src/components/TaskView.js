@@ -4,8 +4,7 @@ import util from "./Utilities";
 export default function TaskView() {
     const container = document.createElement("div");
     container.id = "task-view-container";
-    container.className =
-        "w-full max-w-sm mx-auto lg:max-w-2xl xl:max-w-7xl dxl:max-w-[1536px]";
+    // container.className = "w-full";
 
     const taskDisplay = document.createElement("section");
     taskDisplay.className =

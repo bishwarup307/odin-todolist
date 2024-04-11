@@ -51,6 +51,7 @@ const Calendar = (function cal() {
             const tasks = calendar[`${monthIndex}`][dt];
             const record = {
                 date: Number(dt),
+                dateStr: `2024-${monthIndex}-${dt}`,
                 tasks: tasks,
             };
             month.push(record);
@@ -80,9 +81,11 @@ const Calendar = (function cal() {
 
         for (let i = 0; i < numPadLeftDays; i++) {
             currentMonth.unshift(prevMonth.at(-i - 1));
+            currentMonth[0]["offset"] = true;
         }
         for (let i = 0; i < numPadRightDays; i++) {
             currentMonth.push(nextMonth[i]);
+            currentMonth[currentMonth.length - 1]["offset"] = true;
         }
         return currentMonth;
     }

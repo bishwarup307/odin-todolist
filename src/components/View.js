@@ -31,6 +31,8 @@ export default function View() {
     container.appendChild(addTaskContainer);
 
     const displayContainer = document.createElement("div");
+    displayContainer.className =
+        "w-full max-w-sm lg:max-w-2xl xl:max-w-7xl dxl:max-w-[1536px]";
 
     const taskView = TaskView();
     const calendarView = CalendarView();
@@ -39,7 +41,7 @@ export default function View() {
     container.appendChild(
         SwitchViewTab(displayContainer, taskView, calendarView, projectView)
     );
-    displayContainer.appendChild(taskView);
+    displayContainer.appendChild(calendarView);
     container.appendChild(displayContainer);
 
     return { container, taskView };
@@ -71,7 +73,7 @@ function SwitchViewTab(viewEl, taskViewEl, calendarViewEl, projectViewEl) {
     projectView.textContent = "Project View";
     container.appendChild(projectView);
 
-    let active = taskView;
+    let active = calendarView;
     active.classList.add("active");
 
     container.addEventListener("click", (e) => {

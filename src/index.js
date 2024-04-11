@@ -43,7 +43,8 @@ observer.observe(taskDisplay.taskView, config);
 
 // console.log(TaskList.get());
 
-// const date = dayjs().format("YYYY-MM-DD");
+// const date = dayjs().isSame("2024-4-11", "day");
+// console.log(date);
 // const dateObject = dayjs(date);
 // console.log(date);
 // console.log(dateObject.date());
