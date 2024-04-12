@@ -4,7 +4,7 @@ import Datepicker from "flowbite-datepicker/Datepicker";
 import Task, { TaskList, VALID_CATEGORIES, VALID_PRIORITIES } from "./Task";
 import util from "./Utilities";
 
-export default function AddTask() {
+const AddTask = (function addNewTask() {
     const container = document.createElement("div");
     container.className =
         "flex flex-col gap-2 w-full rounded-2xl border-gray-400 px-4 py-4 shadow-lg bg-white bg-opacity-90";
@@ -127,6 +127,19 @@ export default function AddTask() {
     btnCreateTask.textContent = "Create Task";
     container.appendChild(btnCreateTask);
 
+    const cleanUpForm = () => {
+        taskInput.value = "";
+        while (tagDisplayContainer.firstChild)
+            tagDisplayContainer.removeChild(tagDisplayContainer.firstChild);
+        categoryInput.classList.add("hidden");
+        categoryInput.value = null;
+        tagInput.classList.add("hidden");
+        dateDisplay.classList.add("hidden");
+        dateInput.value = null;
+        priorityInput.classList.add("hidden");
+        priorityInput.value = null;
+    };
+
     btnCreateTask.addEventListener("click", () => {
         if (!taskInput.value) {
             formValidationDiv.textContent = "Please add a task title";
@@ -150,6 +163,7 @@ export default function AddTask() {
             tags: tags,
         });
         TaskList.add(task);
+        cleanUpForm();
     });
 
     tagPicker.addEventListener("click", () => {
@@ -172,7 +186,7 @@ export default function AddTask() {
     });
 
     return container;
-}
+})();
 
 const blurPrevNextMonth = () => {
     const currentDates = document.querySelectorAll(".datepicker-cell");
@@ -275,4 +289,5 @@ function makeInput(type, btn) {
     return input;
 }
 
+export default AddTask;
 export { createTag };

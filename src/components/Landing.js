@@ -45,7 +45,7 @@ export default function Landing() {
     const addTaskContainer = document.createElement("div");
     addTaskContainer.className = "flex flex-col gap-4 w-full items-end";
 
-    addTaskContainer.appendChild(AddTask());
+    addTaskContainer.appendChild(AddTask);
 
     const importTask = document.createElement("p");
     importTask.className = "text-sm lg:text-base";

@@ -3,6 +3,7 @@ import util from "./Utilities";
 
 export default function TaskView() {
     const container = document.createElement("div");
+    container.id = "task-view-container";
     container.className = "task-container";
     const taskDisplay = document.createElement("section");
     taskDisplay.className =
