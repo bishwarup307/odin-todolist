@@ -3,9 +3,7 @@ import util from "./Utilities";
 
 export default function TaskView() {
     const container = document.createElement("div");
-    container.id = "task-view-container";
-    // container.className = "w-full";
-
+    container.className = "task-container";
     const taskDisplay = document.createElement("section");
     taskDisplay.className =
         "grid grid-cols-1 xl:grid-cols-3 xl:gap-x-20 dxl:gap-x-24";

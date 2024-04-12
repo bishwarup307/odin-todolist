@@ -423,6 +423,28 @@ export default class Task {
         rightDiv.appendChild(actionButtonDiv);
         taskContainer.appendChild(rightDiv);
 
+        const editTaskModal = this.displayEditTaskModal();
+        taskContainer.appendChild(editTaskModal);
+
+        btnEditTask.addEventListener("click", () => {
+            editTaskModal.showModal();
+        });
+
+        return taskContainer;
+    }
+
+    displayTaskRibbon() {
+        const taskRibbon = document.createElement("div");
+        taskRibbon.className = "flex px-3 rounded-full";
+        taskRibbon.style.backgroundColor = categoryColors[this.category].color;
+        const taskTitle = document.createElement("p");
+        taskTitle.className = "text-sm text-white truncate";
+        taskTitle.textContent = this.name;
+        taskRibbon.appendChild(taskTitle);
+        return taskRibbon;
+    }
+
+    displayEditTaskModal() {
         const modal = document.createElement("dialog");
         modal.className =
             "w-3/4 max-w-[600px] rounded-lg backdrop:bg-black/50 shadow-sm shadow-white lg:w-1/2";
@@ -622,14 +644,7 @@ export default class Task {
         modalContainer.appendChild(btnSave);
 
         modal.appendChild(modalContainer);
-
-        taskContainer.appendChild(modal);
-
-        btnEditTask.addEventListener("click", () => {
-            modal.showModal();
-        });
-
-        return taskContainer;
+        return modal;
     }
 }
 

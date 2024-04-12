@@ -1,17 +1,18 @@
 import dayjs from "dayjs";
 import Calendar from "./Calendar";
+import Task from "./Task";
 
 export default function CalendarView() {
     const WEEKDAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
 
     const container = document.createElement("div");
-    container.className = "mt-16";
+    container.className = "mt-16 task-container";
 
     const body = document.createElement("div");
     body.className = "w-full grid grid-cols-1 gap-px xl:grid-cols-7";
 
     const dates = Calendar.getMonthDisplay(4);
-    console.log(dates);
+    // console.log(dates);
 
     WEEKDAYS.forEach((weekday) => {
         const dayDiv = document.createElement("div");
@@ -26,12 +27,11 @@ export default function CalendarView() {
 
     dates.forEach((date) => {
         const block = document.createElement("div");
-        block.className =
-            "calendar-block flex flex-col items-start pb-24 pl-4 pt-4";
+        block.className = "calendar-block flex flex-col gap-2 pb-24 pt-4";
         const dateNum = document.createElement("p");
         dateNum.textContent = date.date;
         dateNum.className =
-            "text-2xl font-medium w-12 h-12 flex items-center justify-center";
+            "mb-6 text-2xl font-medium w-12 h-12 flex items-center justify-center";
 
         if (date.offset) dateNum.classList.add("text-slate-400");
         else dateNum.classList.add("text-textPrimary");
@@ -41,7 +41,14 @@ export default function CalendarView() {
             dateNum.classList.add("text-white");
             dateNum.classList.add("rounded-full");
         }
+
         block.appendChild(dateNum);
+
+        date.tasks.forEach((task) => {
+            const taskObject = new Task({ ...task });
+            block.appendChild(taskObject.displayTaskRibbon());
+        });
+
         body.appendChild(block);
     });
 
