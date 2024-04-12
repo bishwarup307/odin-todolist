@@ -9,7 +9,6 @@ import TaskView from "./components/TaskView";
 import View from "./components/View";
 
 function updateUICallback() {
-    observer.disconnect();
     console.log("callback to update UI triggered!");
     while (root.firstChild) root.removeChild(root.firstChild);
 
@@ -19,25 +18,24 @@ function updateUICallback() {
     //     document.body.removeChild(dp);
     // });
 
-    const taskDisplay = View();
-    root.appendChild(taskDisplay.container);
-    observer.observe(taskDisplay.taskView, config);
+    root.appendChild(View());
 }
 
 let observer = new MutationObserver(updateUICallback);
 
 const root = document.querySelector("#root");
+const hack = document.querySelector("#hack");
 
-const taskDisplay = View();
-const landingPage = Landing();
-root.appendChild(landingPage);
-root.appendChild(taskDisplay.container);
+// const taskDisplay = View();
+// const landingPage = Landing();
+// root.appendChild(landingPage);
+// root.appendChild(taskDisplay.container);
 
-if (TaskList.get().length === 0) taskDisplay.container.style.display = "none";
-else landingPage.style.display = "none";
+if (TaskList.get().length === 0) root.appendChild(Landing());
+else root.appendChild(View());
 
 const config = { childList: true };
-observer.observe(taskDisplay.taskView, config);
+observer.observe(hack, config);
 
 // console.log(Calendar.getDate("2024-04-19"));
 

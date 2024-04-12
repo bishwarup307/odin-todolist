@@ -44,7 +44,7 @@ export default function View() {
     displayContainer.appendChild(taskView);
     container.appendChild(displayContainer);
 
-    return { container, taskView };
+    return container;
 }
 
 function SwitchViewTab(viewEl, taskViewEl, calendarViewEl, projectViewEl) {

@@ -32,7 +32,7 @@ const util = (function utility() {
     // I could NOT find a better way to do this for now.
     function updateUIHack() {
         const myHackDiv = document.createElement("div");
-        document.querySelector("#task-view-container").appendChild(myHackDiv);
+        document.querySelector("#hack").appendChild(myHackDiv);
     }
 
     return {

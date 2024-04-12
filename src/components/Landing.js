@@ -1,6 +1,7 @@
 import Logo from "../assets/logo-color.png";
 import AddTask from "./AddTask";
 import { TaskList } from "./Task";
+import util from "./Utilities";
 
 export default function Landing() {
     let classNames;
@@ -65,8 +66,7 @@ export default function Landing() {
         TaskList.importFakeTasks();
 
         // Hack to switch view to TaskView once the tasks have been imported
-        const hackDiv = document.createElement("div");
-        document.querySelector("#task-view-container").appendChild(hackDiv);
+        util.updateUIHack();
     });
 
     // Append the span to the paragraph
