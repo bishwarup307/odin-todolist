@@ -136,7 +136,7 @@ export default class Task {
     }
 
     set tags(tags) {
-        this.addTags(...tags);
+        this._tagList = tags;
     }
 
     get category() {
@@ -573,10 +573,12 @@ export default class Task {
         tagInput.addEventListener("keydown", (e) => {
             if (e.key === "Enter" || e.key === "Tab") {
                 e.stopPropagation();
-                const tag = this.makeTagDisplay(tagInput.value);
-                tagDiv.insertBefore(tag, tagInput);
-                tagInput.value = "";
-                tagInput.focus();
+                if (tagInput.value) {
+                    const tag = this.makeTagDisplay(tagInput.value);
+                    tagDiv.insertBefore(tag, tagInput);
+                    tagInput.value = "";
+                    tagInput.focus();
+                }
             }
         });
 
