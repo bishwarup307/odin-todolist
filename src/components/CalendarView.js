@@ -12,7 +12,7 @@ export default function CalendarView() {
     body.className = "w-full grid grid-cols-1 gap-px xl:grid-cols-7";
 
     const dates = Calendar.getMonthDisplay(4);
-    console.log(dates);
+    // console.log(dates);
 
     WEEKDAYS.forEach((weekday) => {
         const dayDiv = document.createElement("div");
@@ -31,7 +31,7 @@ export default function CalendarView() {
         const dateNum = document.createElement("p");
         dateNum.textContent = date.date;
         dateNum.className =
-            "mb-6 text-2xl font-medium w-12 h-12 flex items-center justify-center";
+            "ml-2 mb-6 text-2xl font-medium w-12 h-12 flex items-center justify-center";
 
         if (date.offset) dateNum.classList.add("text-slate-400");
         else dateNum.classList.add("text-textPrimary");

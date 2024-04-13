@@ -434,13 +434,19 @@ export default class Task {
     }
 
     displayTaskRibbon() {
-        const taskRibbon = document.createElement("div");
+        const taskRibbon = document.createElement("button");
         taskRibbon.className = "flex px-3 rounded-full";
         taskRibbon.style.backgroundColor = categoryColors[this.category].color;
         const taskTitle = document.createElement("p");
         taskTitle.className = "text-sm text-white truncate";
         taskTitle.textContent = this.name;
         taskRibbon.appendChild(taskTitle);
+        const modal = this.displayEditTaskModal();
+        taskRibbon.appendChild(modal);
+        taskRibbon.addEventListener("click", () => {
+            modal.showModal();
+        });
+
         return taskRibbon;
     }
 
@@ -618,7 +624,8 @@ export default class Task {
         btnSave.className =
             "rounded-md bg-black text-white font-medium border-2 border-transparent px-6 py-1 self-end transition-all hover:bg-white hover:border-black hover:text-black";
 
-        btnSave.addEventListener("click", () => {
+        btnSave.addEventListener("click", (e) => {
+            e.stopPropagation();
             const tags = [];
             [...tagDiv.children].forEach((child) => {
                 if (child.classList.contains("tag"))
@@ -635,7 +642,7 @@ export default class Task {
                 tags: tags,
             });
             modal.close();
-            TaskList.save(); // Save the edited task
+            TaskList.sync(this); // Save the edited task
         });
 
         modalContainer.appendChild(editTaskDiv);
@@ -742,6 +749,14 @@ const TaskList = (function Tasks() {
         save();
     }
 
+    function sync(task) {
+        const existingTask = findTask(task.id);
+        if (existingTask) {
+            Object.assign(existingTask, task);
+        }
+        save();
+    }
+
     // function getByDate(taskDeadline) {}
 
     return {
@@ -751,6 +766,7 @@ const TaskList = (function Tasks() {
         getByStatus,
         getByPriority,
         getByProject,
+        sync,
         save,
         importFakeTasks,
         updateStatus,
