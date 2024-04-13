@@ -130,7 +130,7 @@ const AddTask = (function addNewTask() {
     const cleanUpForm = () => {
         taskInput.value = "";
         while (tagDisplayContainer.firstChild)
-            tagDisplayContainer.removeChild(tagDisplayContainer.firstChild);
+            tagDisplayContainer.removeChild(firstChild);
         categoryInput.classList.add("hidden");
         categoryInput.value = null;
         tagInput.classList.add("hidden");
@@ -179,9 +179,11 @@ const AddTask = (function addNewTask() {
 
     tagInput.addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
-            const tag = createTag(tagInput.value);
-            tagDisplayContainer.appendChild(tag);
-            tagInput.value = "";
+            if (tagInput.value) {
+                const tag = createTag(tagInput.value);
+                tagDisplayContainer.appendChild(tag);
+                tagInput.value = "";
+            }
         }
     });
 
