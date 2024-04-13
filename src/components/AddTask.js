@@ -3,6 +3,7 @@ import "flowbite";
 import Datepicker from "flowbite-datepicker/Datepicker";
 import Task, { TaskList, VALID_CATEGORIES, VALID_PRIORITIES } from "./Task";
 import util from "./Utilities";
+import Toast from "./Toast";
 
 const AddTask = (function addNewTask() {
     const container = document.createElement("div");
@@ -130,7 +131,7 @@ const AddTask = (function addNewTask() {
     const cleanUpForm = () => {
         taskInput.value = "";
         while (tagDisplayContainer.firstChild)
-            tagDisplayContainer.removeChild(firstChild);
+            tagDisplayContainer.removeChild(tagDisplayContainer.firstChild);
         categoryInput.classList.add("hidden");
         categoryInput.value = null;
         tagInput.classList.add("hidden");
@@ -164,6 +165,9 @@ const AddTask = (function addNewTask() {
         });
         TaskList.add(task);
         cleanUpForm();
+        const toast = Toast();
+        container.appendChild(toast.getToast());
+        toast.showToast();
     });
 
     tagPicker.addEventListener("click", () => {

@@ -26,6 +26,18 @@ const util = (function utility() {
         );
     }
 
+    function showToast(text) {
+        const toast = document.querySelector("#toast");
+        toast.textContent = text;
+        toast.classList.remove("hidden");
+        toast.classList.add("toast-animation");
+
+        setTimeout(() => {
+            toast.classList.add("hidden");
+            toast.classList.remove("toast-animation");
+        }, 3000);
+    }
+
     // This is a pure hack to make the UI update on the fly
     // while editing tasks. We append this empty div to the task view
     // container to make use of MutationObserver to handle the UI update
@@ -41,6 +53,7 @@ const util = (function utility() {
         toTitleCase,
         getStrHash,
         adjustColor,
+        showToast,
         updateUIHack,
     };
 })();

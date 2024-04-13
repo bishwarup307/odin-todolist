@@ -8,7 +8,7 @@ export default function View() {
     let activeViewIndex = 0;
 
     function renderTasks() {
-        console.log(`Active View: ${activeViewIndex}`);
+        // console.log(`Active View: ${activeViewIndex}`);
 
         staticView.addTaskContainer.appendChild(AddTask);
 
@@ -20,7 +20,7 @@ export default function View() {
         if (activeViewIndex === 0) activeView = TaskView();
         else if (activeViewIndex === 1) activeView = CalendarView();
         else if (activeViewIndex === 2) activeView = ProjectView();
-        console.log(activeView);
+        // console.log(activeView);
         staticView.displayContainer.appendChild(activeView);
     }
 
