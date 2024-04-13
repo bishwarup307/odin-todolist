@@ -195,7 +195,7 @@ export default class Task {
     update(newTask) {
         Calendar.removeEvent(this);
         Object.assign(this, newTask);
-        Calendar.createEvent(this);
+        Calendar.createEvent(this.toJSON());
         TaskList.save();
         util.updateUIHack();
     }
@@ -660,7 +660,7 @@ const TaskList = (function Tasks() {
     function add(task) {
         if (task instanceof Task) {
             taskList.push(task);
-            Calendar.createEvent(task);
+            Calendar.createEvent(task.toJSON());
             save();
             util.updateUIHack();
         } else throw new Error("Not a valid task object");

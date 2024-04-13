@@ -12,7 +12,7 @@ export default function CalendarView() {
     body.className = "w-full grid grid-cols-1 gap-px xl:grid-cols-7";
 
     const dates = Calendar.getMonthDisplay(4);
-    // console.log(dates);
+    console.log(dates);
 
     WEEKDAYS.forEach((weekday) => {
         const dayDiv = document.createElement("div");
@@ -46,6 +46,7 @@ export default function CalendarView() {
 
         date.tasks.forEach((task) => {
             const taskObject = new Task({ ...task });
+
             block.appendChild(taskObject.displayTaskRibbon());
         });
 
