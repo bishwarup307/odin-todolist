@@ -264,6 +264,8 @@ function makeInput(type, btn) {
     input.className = `hidden text-center appearance-none text-xs font-medium bg-gray-200 rounded-full px-2 ${width} py-1 text-ellipsis transition-width duration-500 focus:outline-none lg:text-sm`;
 
     btn.addEventListener("click", () => {
+        while (input.firstChild) input.removeChild(input.firstChild);
+
         if (type === "category") {
             input.classList.add("lg:w-36");
             for (let category of VALID_CATEGORIES) {
