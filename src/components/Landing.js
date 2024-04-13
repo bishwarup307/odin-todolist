@@ -67,6 +67,7 @@ export default function Landing() {
 
         // Hack to switch view to TaskView once the tasks have been imported
         util.updateUIHack();
+        // location.reload();
     });
 
     // Append the span to the paragraph

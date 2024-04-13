@@ -8,6 +8,8 @@ import Landing from "./components/Landing";
 import TaskView from "./components/TaskView";
 import View from "./components/View";
 
+const display = View();
+
 function updateUICallback() {
     console.log("callback to update UI triggered!");
     while (root.firstChild) root.removeChild(root.firstChild);
@@ -18,7 +20,7 @@ function updateUICallback() {
     //     document.body.removeChild(dp);
     // });
 
-    root.appendChild(View());
+    root.appendChild(display.renderView());
 }
 
 let observer = new MutationObserver(updateUICallback);
@@ -32,7 +34,10 @@ const hack = document.querySelector("#hack");
 // root.appendChild(taskDisplay.container);
 
 if (TaskList.get().length === 0) root.appendChild(Landing());
-else root.appendChild(View());
+else {
+    // const display = View();
+    root.appendChild(display.renderView());
+}
 
 const config = { childList: true };
 observer.observe(hack, config);
