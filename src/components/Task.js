@@ -196,7 +196,7 @@ export default class Task {
         Calendar.removeEvent(this);
         Object.assign(this, newTask);
         Calendar.createEvent(this.toJSON());
-        TaskList.save();
+        TaskList.sync(this);
         util.updateUIHack();
     }
 
@@ -267,12 +267,12 @@ export default class Task {
 
         const title = document.createElement("p");
         title.textContent = util.capitalize(this.name);
-        title.className = "font-medium text-base text-textPrimary";
+        title.className = "font-medium text-base text-textPrimary self-start";
         leftDiv.appendChild(title);
 
         const description = document.createElement("p");
         description.textContent = util.capitalize(this.description);
-        description.className = "text-sm text-slate-600 truncate";
+        description.className = "text-sm text-slate-600 truncate self-start";
         leftDiv.appendChild(description);
 
         const projectDiv = document.createElement("div");
@@ -298,7 +298,7 @@ export default class Task {
 
             const dateString = document.createElement("p");
             dateString.textContent = this.endDate;
-            dateString.className = "text-sm text-slate-600";
+            dateString.className = "text-sm text-slate-600 whitespace-nowrap";
             dateDiv.appendChild(dateString);
         }
 
@@ -434,17 +434,100 @@ export default class Task {
     }
 
     displayTaskRibbon() {
+        function getPopoverCoordinates() {
+            const buttonRect = taskRibbon.getBoundingClientRect();
+            const popoverRect = taskCard.getBoundingClientRect();
+
+            console.log(buttonRect);
+            console.log(popoverRect);
+            console.log(window.innerHeight);
+            console.log(window.innerWidth);
+            // Calculate the best position for the popover
+            let top = buttonRect.height; // Default below the button
+            let left = 0; // Aligned with the left side of the button
+
+            // Check if the popover goes out of the viewport on the right
+            if (buttonRect.left + popoverRect.width > window.innerWidth) {
+                left = -popoverRect.width; // Adjust to the left
+            }
+
+            // Check if the popover goes out of the viewport at the bottom
+            if (buttonRect.bottom + popoverRect.height > window.innerHeight) {
+                console.log("hit");
+                top = -popoverRect.height; // Place above the button
+            }
+
+            // Apply calculated position
+            // top = buttonRect.bottom - top;
+            // left = buttonRect.left - left;
+
+            top = `${Math.floor(top)}px`;
+            left = `${Math.floor(left)}px`;
+            return { top, left };
+        }
+
         const taskRibbon = document.createElement("button");
-        taskRibbon.className = "flex px-3 rounded-full";
+        taskRibbon.className = "relative flex px-3 rounded-full";
         taskRibbon.style.backgroundColor = categoryColors[this.category].color;
         const taskTitle = document.createElement("p");
         taskTitle.className = "text-sm text-white truncate";
         taskTitle.textContent = this.name;
         taskRibbon.appendChild(taskTitle);
-        const modal = this.displayEditTaskModal();
-        taskRibbon.appendChild(modal);
-        taskRibbon.addEventListener("click", () => {
-            modal.showModal();
+        // const modal = this.displayEditTaskModal();
+        // taskRibbon.appendChild(modal);
+        // taskRibbon.addEventListener("click", () => {
+        //     modal.showModal();
+        // });
+
+        const taskCard = this.displayTask();
+        // taskCard.classList.add("w-[600px]");
+        // taskCard.classList.add("lg:max-w-lg");
+        taskCard.id = nanoid();
+        taskCard.classList.add("task-card");
+        taskCard.classList.add("hidden");
+        taskCard.classList.add("opacity-0");
+        taskCard.classList.add("absolute");
+        // taskCard.classList.add("left-[50%]");
+        taskCard.classList.add("bg-white");
+        // taskCard.classList.add("opacity-90");
+        taskCard.classList.add("z-10");
+        taskCard.classList.add("transition-opacity");
+        taskCard.classList.add("duration-300");
+        taskCard.classList.add("origin-top-left");
+        taskRibbon.appendChild(taskCard);
+
+        function closePopOver(e) {
+            const target = e.target.closest(".task-card");
+            // console.log(target);
+            if (target && target.id == taskCard.id) {
+                return;
+            }
+
+            // taskCard.classList.add("scale-0");
+            taskCard.style.opacity = "0";
+            taskCard.classList.add("opacity-0");
+            taskCard.classList.add("hidden");
+            // taskCard.classList.add("scale-1");
+            document.removeEventListener("click", closePopOver);
+        }
+
+        taskRibbon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            taskCard.classList.remove("hidden");
+            const { top, left } = getPopoverCoordinates();
+            console.log(top);
+            console.log(left);
+            if (taskCard.classList.contains("opacity-0")) {
+                taskCard.style.top = top;
+                taskCard.style.left = left;
+                // taskCard.classList.add("scale-0");
+                taskCard.style.opacity = "0.9";
+                // taskCard.classList.remove("scale-0");
+            } // else taskCard.classList.add("scale-0");
+
+            document.addEventListener("click", closePopOver);
+
+            // taskCard.style.transform = "scale(1)";
         });
 
         return taskRibbon;
@@ -642,7 +725,7 @@ export default class Task {
                 tags: tags,
             });
             modal.close();
-            TaskList.sync(this); // Save the edited task
+            // TaskList.sync(this); // Save the edited task
         });
 
         modalContainer.appendChild(editTaskDiv);
