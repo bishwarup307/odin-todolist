@@ -33,6 +33,8 @@ export default function CalendarView() {
     container.appendChild(calendar);
 
     btnPrev.addEventListener("click", () => {
+        if (idx === 1) return;
+
         for (let child of container.children) {
             if (child.classList.contains("calendar-body")) {
                 container.removeChild(child);
@@ -45,6 +47,8 @@ export default function CalendarView() {
     });
 
     btnNext.addEventListener("click", () => {
+        if (idx === 12) return;
+
         for (let child of container.children) {
             if (child.classList.contains("calendar-body")) {
                 container.removeChild(child);

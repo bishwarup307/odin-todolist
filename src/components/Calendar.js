@@ -45,6 +45,8 @@ const Calendar = (function cal() {
     }
 
     function getMonth(monthIndex) {
+        if (monthIndex < 0 || monthIndex > 12) return [];
+
         const month = [];
         for (let dt in calendar[`${monthIndex}`]) {
             const tasks = calendar[`${monthIndex}`][dt];
@@ -79,12 +81,28 @@ const Calendar = (function cal() {
         const numPadRightDays = 6 - lastDayofMonth;
 
         for (let i = 0; i < numPadLeftDays; i++) {
-            currentMonth.unshift(prevMonth.at(-i - 1));
-            currentMonth[0]["offset"] = true;
+            if (prevMonth.length > 0) {
+                currentMonth.unshift(prevMonth.at(-i - 1));
+                currentMonth[0]["offset"] = true;
+            } else {
+                currentMonth.unshift({
+                    date: "",
+                    dateStr: "",
+                    tasks: [],
+                });
+            }
         }
         for (let i = 0; i < numPadRightDays; i++) {
-            currentMonth.push(nextMonth[i]);
-            currentMonth[currentMonth.length - 1]["offset"] = true;
+            if (nextMonth.length > 0) {
+                currentMonth.push(nextMonth[i]);
+                currentMonth[currentMonth.length - 1]["offset"] = true;
+            } else {
+                currentMonth.push({
+                    date: "",
+                    dateStr: "",
+                    tasks: [],
+                });
+            }
         }
         return currentMonth;
     }
