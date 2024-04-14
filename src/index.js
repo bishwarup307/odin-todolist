@@ -42,6 +42,8 @@ else {
 const config = { childList: true };
 observer.observe(hack, config);
 
+console.log(dayjs("2024-4-1").format("MMM"));
+
 // console.log(Calendar.getDate("2024-04-19"));
 
 // console.log(TaskList.get());

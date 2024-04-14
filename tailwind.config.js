@@ -24,7 +24,7 @@ module.exports = {
                 fa: "Font Awesome 5 Free",
             },
             colors: {
-                textPrimary: "hsl(197, 94%, 10%)",
+                textPrimary: "hsl(197, 94%, 10%)", // 	#022431
                 textPrimaryLight: "hsl(197, 94%, 20%)",
                 textPrimaryLighter: "hsl(197, 94%, 30%)",
                 textPrimaryLightest: "hsl(197, 94%, 97%)",

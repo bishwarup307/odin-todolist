@@ -1,6 +1,8 @@
 import styles from "./toast.module.css";
 
-export default function Toast() {
+export default function Toast(msg) {
+    const message = msg || "A task is created successfully";
+
     const container = document.createElement("div");
     container.classList.add(styles.toast);
 
@@ -22,7 +24,7 @@ export default function Toast() {
     messageDiv.appendChild(span1);
 
     const span2 = document.createElement("span");
-    span2.textContent = "A task is created successfully";
+    span2.textContent = message;
     span2.classList.add(styles.messageText);
     span2.classList.add(styles.text2);
     messageDiv.appendChild(span2);

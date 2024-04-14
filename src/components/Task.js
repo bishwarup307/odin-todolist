@@ -7,6 +7,7 @@ import Calendar from "./Calendar";
 import util from "./Utilities";
 import Datepicker from "flowbite-datepicker/Datepicker";
 import StateSwitch from "./StateSwitch";
+import Toast from "./Toast";
 
 const VALID_PRIORITIES = ["critical", "high", "medium", "low"];
 const VALID_STATUS = ["to-do", "doing", "done", "paused", "archived"];
@@ -198,6 +199,9 @@ export default class Task {
         Calendar.createEvent(this.toJSON());
         TaskList.sync(this);
         util.updateUIHack();
+        const toast = Toast("Your task has been updated.");
+        document.querySelector("#toast").appendChild(toast.getToast());
+        toast.showToast();
     }
 
     makeTagDisplay(tag) {
