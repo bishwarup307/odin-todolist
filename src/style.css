@@ -116,3 +116,7 @@ button {
 .toast-animation {
     animation: slidein 0.5s, slideout 0.5s 4s;
 }
+
+.project-nav-btn.active {
+    background: hsl(197, 94%, 20%);
+}
