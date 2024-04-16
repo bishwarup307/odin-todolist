@@ -9,6 +9,10 @@ export default function ProjectView() {
     const container = document.createElement("div");
     container.className = "task-container mt-16 xl:flex";
 
+    const btnAdd1 = AddProjectBtn();
+    container.appendChild(btnAdd1);
+    btnAdd1.classList.add("xl:hidden");
+
     const mobileNav = document.createElement("div");
     mobileNav.className =
         "mb-4 bg-gradient-to-r from-textPrimary to-textPrimaryLight px-6 py-2 text-xl text-white rounded-lg flex items-center justify-center shadow-lg xl:hidden";
@@ -39,6 +43,13 @@ export default function ProjectView() {
 
     const sidebar = document.createElement("div");
     sidebar.className = "hidden flex-col xl:flex xl:min-w-64 xl:mr-16";
+
+    const btnAdd2 = AddProjectBtn();
+    // btnAdd2.className = "hidden xl:flex";
+    btnAdd2.classList.add("hidden");
+    btnAdd2.classList.add("xl:flex");
+    btnAdd2.classList.add("xl:mb-12");
+    sidebar.appendChild(btnAdd2);
 
     projects.forEach((project) => {
         const projectBtn = document.createElement("button");
@@ -92,4 +103,22 @@ function displayTasks(projectId) {
         taskContainer.appendChild(task.displayTask());
     });
     return taskContainer;
+}
+
+function AddProjectBtn() {
+    const btnAddProject = document.createElement("button");
+    btnAddProject.className =
+        "mb-4 flex justify-between items-center bg-black shadow-md px-4 py-2 w-full rounded-lg";
+
+    const btnText = document.createElement("p");
+    btnText.textContent = "New Project";
+    btnText.className = "font-medium text-white text-lg";
+    btnAddProject.appendChild(btnText);
+
+    const btnIcon = document.createElement("div");
+    btnIcon.className = "w-8";
+    btnIcon.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#f2f2f2"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#f2f2f2" stroke-width="1.5" stroke-linecap="round"></path> <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#f2f2f2" stroke-width="1.5" stroke-linecap="round"></path> </g></svg>`;
+    btnAddProject.appendChild(btnIcon);
+
+    return btnAddProject;
 }
