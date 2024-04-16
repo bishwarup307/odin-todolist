@@ -95,7 +95,7 @@ export default function ProjectView() {
 function displayTasks(projectId) {
     const taskContainer = document.createElement("div");
     taskContainer.className =
-        "grid grid-cols-1 gap-y-8 items-start xl:grid-cols-3 xl:gap-x-12";
+        "flex-1 grid grid-cols-1 gap-y-8 items-start xl:grid-cols-2 xl:gap-x-12 dxl:grid-cols-3";
     taskContainer.id = "projectview-task-container";
     const myTasks = TaskList.getByProject(projectId);
 
