@@ -42,10 +42,18 @@ export default function ProjectView() {
         const projectBtn = document.createElement("button");
         projectBtn.className =
             "project-nav-btn flex items-center justify-center px-4 py-2 rounded-lg bg-textPrimary border-b-[1px] border-bgExtraLight text-white transition-all duration-300 xl:rounded-none xl:bg-white xl:text-textPrimary xl:font-medium xl:justify-start";
-        if (project.name === "default") {
-            selected = projectBtn;
-            projectBtn.classList.add("active");
+
+        if (selected) {
+            if (project.id === selected.id) {
+                selected = projectBtn;
+            }
+        } else {
+            if (project.name === "default") {
+                selected = projectBtn;
+            }
         }
+        selected.classList.add("active");
+
         projectBtn.textContent = project.name;
         projectBtn.id = project.id;
         projectBtn.dataset.name = project.name;
@@ -66,8 +74,7 @@ export default function ProjectView() {
     });
 
     container.appendChild(sidebar);
-    container.appendChild(displayTasks(projects[0].id));
-
+    container.appendChild(displayTasks(selected.id));
     return container;
 }
 

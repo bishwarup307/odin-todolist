@@ -65,7 +65,7 @@
         "endDate": "2024-04-18",
         "priority": "medium",
         "category": "home",
-        "status": "paused",
+        "status": "to-do",
         "tags": ["garden", "maintenance", "flowers"],
         "project": "default"
     },
@@ -115,7 +115,7 @@
         "endDate": "2024-04-19",
         "priority": "low",
         "category": "home",
-        "status": "paused",
+        "status": "to-do",
         "tags": ["garage", "organize", "cleaning"],
         "project": "default"
     },
@@ -205,7 +205,7 @@
         "endDate": "2024-04-17",
         "priority": "high",
         "category": "home",
-        "status": "paused",
+        "status": "to-do",
         "tags": ["kitchen", "faucet", "install"],
         "project": "Home Renovation"
     },
@@ -325,7 +325,7 @@
         "endDate": "2024-04-24",
         "priority": "low",
         "category": "professional",
-        "status": "paused",
+        "status": "to-do",
         "tags": ["contacts", "update", "professional"],
         "project": "Career Advancement"
     },
