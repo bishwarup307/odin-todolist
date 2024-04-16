@@ -15,7 +15,9 @@ export default function ProjectView() {
 
     const currentProject = document.createElement("p");
     currentProject.className = "text-white text-lg font-medium mr-auto";
-    currentProject.textContent = projects[0].name;
+    currentProject.textContent = selected
+        ? selected.dataset.name
+        : projects[0].name;
     mobileNav.appendChild(currentProject);
 
     const btnShowNav = document.createElement("button");
@@ -69,6 +71,7 @@ export default function ProjectView() {
                     container.removeChild(child);
             }
             container.appendChild(displayTasks(projectBtn.id));
+            currentProject.textContent = project.name;
             sidebar.classList.add("hidden");
         });
     });
