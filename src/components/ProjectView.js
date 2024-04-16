@@ -122,3 +122,31 @@ function AddProjectBtn() {
 
     return btnAddProject;
 }
+
+function AddProjectModal() {
+    const container = document.createElement("div");
+    container.className =
+        "grid grid-cols-2 rounded-lg shadow-sm shadow-white backdrop:bg-black/50 max-w-sm lg:max-w-md";
+
+    const labelName = document.createElement("p");
+    labelName.textContent = "Name";
+    container.appendChild(labelName);
+
+    const nameDiv = document.createElement("div");
+    const name = document.createElement("input");
+    name.placeholder = "Choose a name for your project";
+    // name.className = ""
+    nameDiv.appendChild(name);
+    const nameValidation = document.createElement("p");
+    nameValidation.textContent = "";
+    nameValidation.className = "absolute";
+    nameDiv.appendChild(nameValidation);
+    container.appendChild(nameDiv);
+
+    const labelDescription = document.createElement("p");
+    labelDescription.textContent = "Description";
+    container.appendChild(labelDescription);
+
+    const description = document.createElement("input");
+    description;
+}
