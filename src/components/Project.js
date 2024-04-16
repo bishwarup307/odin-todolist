@@ -40,9 +40,7 @@ const ProjectList = (function Projects() {
         // if (projectList.length > 0) return;
 
         fakeProjects.forEach((fakeProject) => {
-            projectList.push(
-                new Project(fakeProject.name, fakeProject.description)
-            );
+            add(new Project(fakeProject.name, fakeProject.description));
         });
         save();
     }

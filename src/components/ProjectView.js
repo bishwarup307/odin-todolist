@@ -18,7 +18,7 @@ export default function ProjectView() {
     mobileNav.appendChild(currentProject);
 
     const btnShowNav = document.createElement("button");
-    btnShowNav.innerHTML = `<svg viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>Align-Left</title> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Align-Left"> <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="24" height="24"> </rect> <line x1="5" y1="6" x2="19" y2="6" id="Path" stroke="#dedede" stroke-width="2" stroke-linecap="round"> </line> <line x1="5" y1="14" x2="19" y2="14" id="Path" stroke="#dedede" stroke-width="2" stroke-linecap="round"> </line> <line x1="5" y1="10" x2="13" y2="10" id="Path" stroke="#dedede" stroke-width="2" stroke-linecap="round"> </line> <line x1="5" y1="18" x2="13" y2="18" id="Path" stroke="#dedede" stroke-width="2" stroke-linecap="round"> </line> </g> </g> </g></svg>`;
+    btnShowNav.innerHTML = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 6H20M4 12H14M4 18H9" stroke="#ebebeb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
     btnShowNav.className = " stroke-white fill-white w-10";
     mobileNav.appendChild(btnShowNav);
 
