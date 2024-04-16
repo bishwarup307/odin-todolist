@@ -7,11 +7,11 @@ export default function ProjectView() {
     const projects = ProjectList.getAllProjects();
 
     const container = document.createElement("div");
-    container.className = "task-container mt-16";
+    container.className = "task-container mt-16 xl:flex";
 
     const mobileNav = document.createElement("div");
     mobileNav.className =
-        "mb-4 bg-gradient-to-r from-textPrimary to-textPrimaryLight px-6 py-2 text-xl text-white rounded-lg flex items-center justify-center shadow-lg";
+        "mb-4 bg-gradient-to-r from-textPrimary to-textPrimaryLight px-6 py-2 text-xl text-white rounded-lg flex items-center justify-center shadow-lg xl:hidden";
 
     const currentProject = document.createElement("p");
     currentProject.className = "text-white text-lg font-medium mr-auto";
@@ -36,12 +36,12 @@ export default function ProjectView() {
     container.appendChild(mobileNav);
 
     const sidebar = document.createElement("div");
-    sidebar.className = "hidden flex-col";
+    sidebar.className = "hidden flex-col xl:flex xl:min-w-64 xl:mr-16";
 
     projects.forEach((project) => {
         const projectBtn = document.createElement("button");
         projectBtn.className =
-            "project-nav-btn flex items-center justify-center px-4 py-2 rounded-lg bg-textPrimary border-b-[1px] border-bgExtraLight text-white transition-all duration-300";
+            "project-nav-btn flex items-center justify-center px-4 py-2 rounded-lg bg-textPrimary border-b-[1px] border-bgExtraLight text-white transition-all duration-300 xl:rounded-none xl:bg-white xl:text-textPrimary xl:font-medium xl:justify-start";
         if (project.name === "default") {
             selected = projectBtn;
             projectBtn.classList.add("active");
@@ -73,7 +73,8 @@ export default function ProjectView() {
 
 function displayTasks(projectId) {
     const taskContainer = document.createElement("div");
-    taskContainer.className = "grid grid-cols-1 gap-y-8";
+    taskContainer.className =
+        "grid grid-cols-1 gap-y-8 items-start xl:grid-cols-3 xl:gap-x-12";
     taskContainer.id = "projectview-task-container";
     const myTasks = TaskList.getByProject(projectId);
 

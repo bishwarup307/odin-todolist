@@ -119,4 +119,6 @@ button {
 
 .project-nav-btn.active {
     background: hsl(197, 94%, 20%);
+    color: white;
+    border-radius: 0.5rem;
 }
