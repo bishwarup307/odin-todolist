@@ -1,4 +1,5 @@
 import { ProjectList } from "./Project";
+import { TaskList } from "./Task";
 
 let selected;
 
@@ -46,6 +47,7 @@ export default function ProjectView() {
             projectBtn.classList.add("active");
         }
         projectBtn.textContent = project.name;
+        projectBtn.id = project.id;
         projectBtn.dataset.name = project.name;
         sidebar.appendChild(projectBtn);
 
@@ -53,10 +55,30 @@ export default function ProjectView() {
             selected.classList.remove("active");
             selected = projectBtn;
             selected.classList.add("active");
+
+            for (let child of container.children) {
+                if (child.id === "projectview-task-container")
+                    container.removeChild(child);
+            }
+            container.appendChild(displayTasks(projectBtn.id));
+            sidebar.classList.add("hidden");
         });
     });
 
     container.appendChild(sidebar);
+    container.appendChild(displayTasks(projects[0].id));
 
     return container;
+}
+
+function displayTasks(projectId) {
+    const taskContainer = document.createElement("div");
+    taskContainer.className = "grid grid-cols-1 gap-y-8";
+    taskContainer.id = "projectview-task-container";
+    const myTasks = TaskList.getByProject(projectId);
+
+    myTasks.forEach((task) => {
+        taskContainer.appendChild(task.displayTask());
+    });
+    return taskContainer;
 }

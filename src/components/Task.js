@@ -276,7 +276,7 @@ export default class Task {
 
         const description = document.createElement("p");
         description.textContent = util.capitalize(this.description);
-        description.className = "text-sm text-slate-600 truncate self-start";
+        description.className = "text-sm text-slate-600 truncate";
         leftDiv.appendChild(description);
 
         const projectDiv = document.createElement("div");
@@ -808,10 +808,8 @@ const TaskList = (function Tasks() {
         );
     }
 
-    function getByProject(projectName) {
-        return taskList.filter(
-            (task) => task.project.id === Util.getStrHash(projectName)
-        );
+    function getByProject(projectId) {
+        return taskList.filter((task) => task.project.id === projectId);
     }
 
     function getByPriority(taskPriority) {
