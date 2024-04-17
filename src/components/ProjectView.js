@@ -1,5 +1,6 @@
-import { ProjectList } from "./Project";
+import Project, { ProjectList } from "./Project";
 import { TaskList } from "./Task";
+import util from "./Utilities";
 
 let selected;
 
@@ -89,6 +90,18 @@ export default function ProjectView() {
 
     container.appendChild(sidebar);
     container.appendChild(displayTasks(selected.id));
+
+    const addProjectModal = AddProjectModal();
+    container.appendChild(addProjectModal);
+
+    btnAdd1.addEventListener("click", () => {
+        addProjectModal.showModal();
+    });
+
+    btnAdd2.addEventListener("click", () => {
+        addProjectModal.showModal();
+    });
+
     return container;
 }
 
@@ -124,22 +137,28 @@ function AddProjectBtn() {
 }
 
 function AddProjectModal() {
+    const modal = document.createElement("dialog");
+    modal.className =
+        "w-full px-8 py-8 rounded-lg shadow-sm shadow-white backdrop:bg-black/50 max-w-sm lg:max-w-md xl:max-w-lg";
+
     const container = document.createElement("div");
     container.className =
-        "grid grid-cols-2 rounded-lg shadow-sm shadow-white backdrop:bg-black/50 max-w-sm lg:max-w-md";
+        "grid grid-cols-[100px_auto] gap-x-4 gap-y-8 items-center";
 
     const labelName = document.createElement("p");
     labelName.textContent = "Name";
     container.appendChild(labelName);
 
     const nameDiv = document.createElement("div");
+    nameDiv.className = "relative";
     const name = document.createElement("input");
     name.placeholder = "Choose a name for your project";
-    // name.className = ""
+    name.className =
+        "w-full border-black rounded-lg border-2 px-1 py-2 text-md placeholder:text-sm focus:outline-none";
     nameDiv.appendChild(name);
     const nameValidation = document.createElement("p");
     nameValidation.textContent = "";
-    nameValidation.className = "absolute";
+    nameValidation.className = "absolute text-xs text-red-500";
     nameDiv.appendChild(nameValidation);
     container.appendChild(nameDiv);
 
@@ -147,6 +166,27 @@ function AddProjectModal() {
     labelDescription.textContent = "Description";
     container.appendChild(labelDescription);
 
-    const description = document.createElement("input");
-    description;
+    const description = document.createElement("textarea");
+    description.placeholder = "Add a brief description...";
+    description.className =
+        "border-black rounded-lg border-2 px-1 py-2 text-md placeholder:text-sm resize-none focus:outline-none";
+    container.appendChild(description);
+
+    const addBtn = document.createElement("button");
+    addBtn.textContent = "Create Project";
+    addBtn.className =
+        "rounded-lg bg-black font-medium text-white px-4 py-2 shadow-md flex justify-center items-center col-span-2 self-end";
+    container.appendChild(addBtn);
+
+    addBtn.addEventListener("click", () => {
+        if (!name.value) {
+            nameValidation.textContent = "Please enter a name for your project";
+        }
+        ProjectList.add(new Project(name.value, description.value));
+        util.updateUIHack();
+        modal.close();
+    });
+    modal.appendChild(container);
+
+    return modal;
 }
