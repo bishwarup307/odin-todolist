@@ -4,6 +4,7 @@ import Datepicker from "flowbite-datepicker/Datepicker";
 import Task, { TaskList, VALID_CATEGORIES, VALID_PRIORITIES } from "./Task";
 import util from "./Utilities";
 import Toast from "./Toast";
+import { AddProjectBtn, AddProjectModal } from "./ProjectView";
 
 const AddTask = (function addNewTask() {
     const container = document.createElement("div");
@@ -122,11 +123,22 @@ const AddTask = (function addNewTask() {
     divider.className = "w-full h-0.5 bg-slate-400 my-2 shadow-lg";
     container.appendChild(divider);
 
+    const btnDiv = document.createElement("div");
+    const addProjectBtn = AddProjectBtn("small");
+    btnDiv.appendChild(addProjectBtn);
+    const addProjectModal = AddProjectModal();
+    btnDiv.appendChild(addProjectModal);
+    addProjectBtn.addEventListener("click", () => {
+        addProjectModal.showModal();
+    });
+
+    btnDiv.className = "self-end flex gap-4 justify-end items-center";
     const btnCreateTask = document.createElement("button");
     btnCreateTask.className =
-        "rounded-lg bg-orange-500 text-white font-medium px-4 py-2 border-none self-end hover:bg-orange-700 transition-all";
+        "rounded-lg bg-orange-500 text-white font-medium px-4 py-2 border-none hover:bg-orange-700 transition-all whitespace-nowrap";
     btnCreateTask.textContent = "Create Task";
-    container.appendChild(btnCreateTask);
+    btnDiv.appendChild(btnCreateTask);
+    container.appendChild(btnDiv);
 
     const cleanUpForm = () => {
         taskInput.value = "";

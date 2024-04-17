@@ -1,6 +1,8 @@
 import { nanoid } from "nanoid";
 import fakeProjects from "../data/fakeProjects.json";
 import Util from "./Utilities";
+import util from "./Utilities";
+import Toast from "./Toast";
 
 export default class Project {
     constructor(name, description, id) {
@@ -21,6 +23,10 @@ const ProjectList = (function Projects() {
         if (!find(project)) {
             projectList.push(project);
             save();
+            util.updateUIHack();
+            const toast = Toast("A new project is created");
+            document.querySelector("#toast").appendChild(toast.getToast());
+            toast.showToast();
         }
     }
 

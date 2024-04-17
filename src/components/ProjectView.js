@@ -159,15 +159,31 @@ function displayTasks(projectId) {
     return taskContainer;
 }
 
-function AddProjectBtn() {
+export function AddProjectBtn(type) {
     const btnAddProject = document.createElement("button");
     btnAddProject.className =
         "mb-4 flex justify-between items-center bg-black shadow-md px-4 py-2 w-full rounded-lg";
 
     const btnText = document.createElement("p");
     btnText.textContent = "New Project";
-    btnText.className = "font-medium text-white text-lg";
+    btnText.className = "font-medium text-white text-lg btn-add-project-text";
     btnAddProject.appendChild(btnText);
+
+    if (type === "small") {
+        btnAddProject.classList.remove("mb-4");
+        btnAddProject.classList.remove("py-2");
+        btnAddProject.classList.add("py-1");
+        btnAddProject.classList.remove("px-4");
+        btnAddProject.classList.add("px-1");
+        btnAddProject.classList.add("gap-1");
+        btnAddProject.classList.remove("rounded-lg");
+        btnAddProject.classList.add("rounded-full");
+        btnText.classList.remove("text-lg");
+        btnText.classList.add("text-base");
+        btnText.classList.add("hidden");
+        // btnText.classList.add("scale-0");
+        btnAddProject.classList.add("btn-add-project-small");
+    }
 
     const btnIcon = document.createElement("div");
     btnIcon.className = "w-8";
@@ -177,7 +193,7 @@ function AddProjectBtn() {
     return btnAddProject;
 }
 
-function AddProjectModal() {
+export function AddProjectModal() {
     const modal = document.createElement("dialog");
     modal.className =
         "w-full px-8 py-8 rounded-lg shadow-sm shadow-white backdrop:bg-black/50 max-w-sm lg:max-w-md xl:max-w-lg";
@@ -224,7 +240,7 @@ function AddProjectModal() {
             nameValidation.textContent = "Please enter a name for your project";
         }
         ProjectList.add(new Project(name.value, description.value));
-        util.updateUIHack();
+        // util.updateUIHack();
         modal.close();
     });
     modal.appendChild(container);

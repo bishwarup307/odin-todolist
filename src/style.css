@@ -122,3 +122,12 @@ button {
     color: white;
     border-radius: 0.5rem;
 }
+
+.btn-add-project-small:hover .btn-add-project-text {
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.btn-add-project-text {
+    transition: transform 1000ms;
+}
