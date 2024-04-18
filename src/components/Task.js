@@ -239,17 +239,6 @@ export default class Task {
         category.className = `flex self-start justify-start items-center rounded-full px-2 text-white font-medium text-sm`;
         category.style.backgroundColor = bgColor;
         categoryDiv.appendChild(category);
-        // const deleteTask = document.createElement("button");
-        // deleteTask.innerHTML = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M5.755,20.283,4,8H20L18.245,20.283A2,2,0,0,1,16.265,22H7.735A2,2,0,0,1,5.755,20.283ZM21,4H16V3a1,1,0,0,0-1-1H9A1,1,0,0,0,8,3V4H3A1,1,0,0,0,3,6H21a1,1,0,0,0,0-2Z"></path></g></svg>`;
-        // deleteTask.className =
-        //     "relative mr-3 fill-slate-700 w-5 h-5 opacity-35 transition-opacity hover:opacity-100";
-        // deleteTask.dataset.tooltip = "Delete task";
-
-        // categoryDiv.appendChild(deleteTask);
-
-        // deleteTask.addEventListener("click", () => {
-        //     TaskList.remove(this.id);
-        // });
 
         const expiredDiv = document.createElement("div");
         expiredDiv.className = "flex gap-1";
@@ -413,7 +402,6 @@ export default class Task {
 
         deleteTask.addEventListener("click", () => {
             confirmDeleteModal.showModal();
-            // TaskList.remove(this.id);
         });
 
         btnCancelDelete.addEventListener("click", () => {
@@ -477,41 +465,30 @@ export default class Task {
         taskTitle.className = "text-sm text-white truncate";
         taskTitle.textContent = this.name;
         taskRibbon.appendChild(taskTitle);
-        // const modal = this.displayEditTaskModal();
-        // taskRibbon.appendChild(modal);
-        // taskRibbon.addEventListener("click", () => {
-        //     modal.showModal();
-        // });
 
         const taskCard = this.displayTask();
-        // taskCard.classList.add("w-[600px]");
-        // taskCard.classList.add("lg:max-w-lg");
         taskCard.id = nanoid();
         taskCard.classList.add("task-card");
         taskCard.classList.add("hidden");
         taskCard.classList.add("opacity-0");
         taskCard.classList.add("absolute");
-        // taskCard.classList.add("left-[50%]");
         taskCard.classList.add("bg-white");
-        // taskCard.classList.add("opacity-90");
         taskCard.classList.add("z-10");
         taskCard.classList.add("transition-opacity");
         taskCard.classList.add("duration-300");
         taskCard.classList.add("origin-top-left");
+        taskCard.classList.add("max-w-sm");
         taskRibbon.appendChild(taskCard);
 
         function closePopOver(e) {
             const target = e.target.closest(".task-card");
-            // console.log(target);
+
             if (target && target.id == taskCard.id) {
                 return;
             }
-
-            // taskCard.classList.add("scale-0");
             taskCard.style.opacity = "0";
             taskCard.classList.add("opacity-0");
             taskCard.classList.add("hidden");
-            // taskCard.classList.add("scale-1");
             document.removeEventListener("click", closePopOver);
         }
 
@@ -524,14 +501,10 @@ export default class Task {
             if (taskCard.classList.contains("opacity-0")) {
                 taskCard.style.top = top;
                 taskCard.style.left = left;
-                // taskCard.classList.add("scale-0");
-                taskCard.style.opacity = "0.9";
-                // taskCard.classList.remove("scale-0");
-            } // else taskCard.classList.add("scale-0");
+                taskCard.style.opacity = "0.95";
+            }
 
             document.addEventListener("click", closePopOver);
-
-            // taskCard.style.transform = "scale(1)";
         });
 
         return taskRibbon;
@@ -729,7 +702,6 @@ export default class Task {
                 tags: tags,
             });
             modal.close();
-            // TaskList.sync(this); // Save the edited task
         });
 
         modalContainer.appendChild(editTaskDiv);

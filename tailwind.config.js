@@ -48,7 +48,7 @@ module.exports = {
                 professional: "#03A9F4",
             },
             boxShadow: {
-                task: "inset 6px 0px var(--shadow-color), 2px 2px 10px var(--shadow-color-alpha), 0px 6px 10px var(--shadow-color-alpha)",
+                task: "inset 6px 0px var(--shadow-color), 2px 2px 6px var(--shadow-color-alpha), 0px 4px 4px var(--shadow-color-alpha)",
             },
         },
     },

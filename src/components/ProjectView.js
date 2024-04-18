@@ -19,7 +19,6 @@ export default function ProjectView() {
     searchDiv.appendChild(searchInput);
 
     searchInput.addEventListener("input", () => {
-        // console.log("fired");
         updateSidebar(searchInput.value);
     });
 
@@ -240,7 +239,6 @@ export function AddProjectModal() {
             nameValidation.textContent = "Please enter a name for your project";
         }
         ProjectList.add(new Project(name.value, description.value));
-        // util.updateUIHack();
         modal.close();
     });
     modal.appendChild(container);
