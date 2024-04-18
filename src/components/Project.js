@@ -24,9 +24,12 @@ const ProjectList = (function Projects() {
             projectList.push(project);
             save();
             util.updateUIHack();
-            const toast = Toast("A new project is created");
-            document.querySelector("#toast").appendChild(toast.getToast());
-            toast.showToast();
+            // prevent toast message when the application boots
+            if (project.name !== "default") {
+                const toast = Toast("A new project is created");
+                document.querySelector("#toast").appendChild(toast.getToast());
+                toast.showToast();
+            }
         }
     }
 
@@ -43,14 +46,13 @@ const ProjectList = (function Projects() {
     }
 
     function importFakeProjects() {
-        // if (projectList.length > 0) return;
-
         fakeProjects.forEach((fakeProject) => {
             add(new Project(fakeProject.name, fakeProject.description));
         });
         save();
     }
 
+    // add a default project when the application boots
     add(
         new Project(
             "default",
@@ -61,5 +63,4 @@ const ProjectList = (function Projects() {
     return { add, find, save, getAllProjects, importFakeProjects };
 })();
 
-// ProjectList.importFakeProjects();
 export { ProjectList };
