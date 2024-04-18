@@ -180,7 +180,6 @@ export function AddProjectBtn(type) {
         btnText.classList.remove("text-lg");
         btnText.classList.add("text-base");
         btnText.classList.add("hidden");
-        // btnText.classList.add("scale-0");
         btnAddProject.classList.add("btn-add-project-small");
     }
 

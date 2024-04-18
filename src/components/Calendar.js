@@ -72,13 +72,13 @@ const Calendar = (function cal() {
         const currentMonth = getMonth(monthIndex);
         const nextMonth = getMonth(monthIndex + 1);
 
-        const firstDayofMonth = dayjs(`${2024}-${monthIndex}-1`).day();
-        const lastDayofMonth = dayjs(
+        const firstDayOfMonth = dayjs(`${2024}-${monthIndex}-1`).day();
+        const lastDayOfMonth = dayjs(
             `${2024}-${monthIndex}-${currentMonth.at(-1).date}`
         ).day();
 
-        const numPadLeftDays = firstDayofMonth - 0;
-        const numPadRightDays = 6 - lastDayofMonth;
+        const numPadLeftDays = firstDayOfMonth - 0;
+        const numPadRightDays = 6 - lastDayOfMonth;
 
         for (let i = 0; i < numPadLeftDays; i++) {
             if (prevMonth.length > 0) {
